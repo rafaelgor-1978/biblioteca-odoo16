@@ -16,6 +16,7 @@ class BibliotecaLibro(models.Model):
     precio = fields.Float(string='Precio')
     descripcion = fields.Text(string='Breve resumen libro')
     active = fields.Boolean(string='Activo / Inactivo', default=True)
+    imagen = fields.Image(string="Portada del Libro", max_width=1920, max_height=1920)
     estado = fields.Selection(
         selection=[
             ('disponible', 'Libro disponible'),
