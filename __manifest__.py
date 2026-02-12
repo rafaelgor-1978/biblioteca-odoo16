@@ -12,6 +12,7 @@
 
     'author': "Rafael Rodríguez Calderón",
     'website': "https://ifct0610.xo.je",
+    'icon': 'biblioteca/static/description/icon.png',
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -28,5 +29,5 @@
         'views/views.xml',
         'views/templates.xml',
     ],
-    
+
 }

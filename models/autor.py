@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 
+
 class BibliotecaAutor(models.Model):
     _name = 'biblioteca.autor'
     _description = 'Datos del autor'

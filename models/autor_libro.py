@@ -1,4 +1,4 @@
--*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
 
@@ -7,7 +7,7 @@ class BibliotecaAutorLibro(models.Model):
     _name = 'biblioteca.autor_libro'
     _description = 'Relación Autor-Libro con información extra'
     _order = 'libro_id, orden'  # Ordenar por libro y luego por secuencia
-    
+
     # Los dos Many2one que forman la relación
     libro_id = fields.Many2one(
         comodel_name='biblioteca.libro',
@@ -15,7 +15,7 @@ class BibliotecaAutorLibro(models.Model):
         required=True,
         ondelete='cascade'  # Si se elimina el libro, se eliminan sus relaciones
     )
-    
+
     autor_id = fields.Many2one(
         comodel_name='biblioteca.autor',
         string='Autor',
