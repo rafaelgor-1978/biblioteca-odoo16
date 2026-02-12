@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class BibliotecaAutorLibro(models.Model):
@@ -23,7 +23,7 @@ class BibliotecaAutorLibro(models.Model):
         ondelete='cascade'  # Si se elimina el autor, se eliminan sus relaciones
     )
 
-    es_autor_principal = fields.Bolean(
+    es_autor_principal = fields.Boolean(
         string='Autor principal',
         default=10,
         help='Marcar si el autor es principal.'

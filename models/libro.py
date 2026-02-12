@@ -15,7 +15,7 @@ class BibliotecaLibro(models.Model):
     fecha_adquisicion = fields.Date(string='Año adquisicion')
     precio = fields.Float(string='Precio')
     descripcion = fields.Text(string='Breve resumen libro')
-    active = fields.Bolean(string='Activo / Inactivo', default=True)
+    active = fields.Boolean(string='Activo / Inactivo', default=True)
     estado = fields.Selection(
         selection=[
             ('disponible', 'Libro disponible'),
@@ -34,7 +34,8 @@ class BibliotecaLibro(models.Model):
     autores_ids = fields.One2many(
         comodel_name='biblioteca.autor_libro',
         inverse_name='libro_id',
-        string='Autores'
+        string='Autores',
+        
     )
 
     # Relación con genero (esta sí sigue siendo Many2many simple)

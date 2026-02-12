@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =========================
+            VISTA TREE
+    ========================== -->
+    <record id="view_biblioteca_autor_tree" model="ir.ui.view">
+        <field name="name">biblioteca.autor.tree</field>
+        <field name="model">biblioteca.autor</field>
+        <field name="arch" type="xml">
+            <tree string="Autores">
+                <field name="name"/>
+                <field name="nacionalidad"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- =========================
+            VISTA FORM
+    ========================== -->
+    <record id="view_biblioteca_autor_form" model="ir.ui.view">
+        <field name="name">biblioteca.autor.form</field>
+        <field name="model">biblioteca.autor</field>
+        <field name="arch" type="xml">
+            <form string="Autor">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="nacionalidad"/>
+                            <field name="biografia"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                       
+                        <page string="Libros publicados">
+                            <field name="libros_ids">
+                                <tree>
+                                    <field name="libro_id"/>
+                                    <field name="es_autor_principal"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- =========================
+            ACCIÓN
+    ========================== -->
+    <record id="action_biblioteca_autor" model="ir.actions.act_window">
+        <field name="name">Autores</field>
+        <field name="res_model">biblioteca.autor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- =========================
+            MENÚ (después de Libros)
+    ========================== -->
+    <menuitem id="menu_biblioteca_autores"
+              name="Autores"
+              parent="menu_biblioteca_root"
+              action="action_biblioteca_autor"
+              sequence="20"/>
+
+</odoo>

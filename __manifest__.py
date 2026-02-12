@@ -28,6 +28,10 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/autor.xml',
+        'views/autor_libro.xml',
+        'views/genero.xml',
+        'views/libro.xml',
     ],
 
 }
