@@ -10,6 +10,8 @@ class BibliotecaAutor(models.Model):
     name = fields.Char(string='Nombre', required=True)
     nacionalidad = fields.Char(string='Nacionalidad')
     biografia = fields.Text(string='Breve biografia')
+    imagen = fields.Image(string="Foto del autor",
+                          max_width=1920, max_height=1920)
     # cambio libro_autor_ids por libros_ids, me parece mas coherente para comprenderlo
     libros_ids = fields.One2many(
         comodel_name='biblioteca.autor_libro',

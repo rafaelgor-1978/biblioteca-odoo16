@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+from odoo.fields import Date, Datetime
 
 
 class BibliotecaLibro(models.Model):
@@ -16,7 +18,8 @@ class BibliotecaLibro(models.Model):
     precio = fields.Float(string='Precio')
     descripcion = fields.Text(string='Breve resumen libro')
     active = fields.Boolean(string='Activo / Inactivo', default=True)
-    imagen = fields.Image(string="Portada del Libro", max_width=1920, max_height=1920)
+    imagen = fields.Image(string="Portada del Libro",
+                          max_width=1920, max_height=1920)
     estado = fields.Selection(
         selection=[
             ('disponible', 'Libro disponible'),
@@ -36,7 +39,7 @@ class BibliotecaLibro(models.Model):
         comodel_name='biblioteca.autor_libro',
         inverse_name='libro_id',
         string='Autores',
-        
+
     )
 
     # Relación con genero (esta sí sigue siendo Many2many simple)
@@ -44,3 +47,26 @@ class BibliotecaLibro(models.Model):
         comodel_name='biblioteca.genero',
         string='Generos'
     )
+
+    @api.constrains('ano_publicacion', 'fecha_adquisicion')
+    def _check_fechas(self):
+        fecha_actual = Date.today()
+        ano_actual = Datetime.now().year
+        for record in self:
+            if record.ano_publicacion:
+                if record.ano_publicacion > ano_actual:
+                    raise ValidationError(
+                        'El año de publicación es mayor que el año actual')
+
+            if record.fecha_adquisicion:
+                if record.fecha_adquisicion >= fecha_actual:
+                    raise ValidationError(
+                        'La fecha de adquisición es mayor que la fecha actual, ESPABILA!!!')
+
+    _sql_constraints = [
+        (
+            'unique_isbn',
+            'UNIQUE(isbn)',
+            '¡Ya existe este este ISBN, debe ser unico!'
+        )
+    ]

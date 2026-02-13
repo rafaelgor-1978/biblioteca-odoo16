@@ -9,6 +9,7 @@
         <field name="model">biblioteca.autor</field>
         <field name="arch" type="xml">
             <tree string="Autores">
+                <field name="imagen" widget="image" options="{'size': [35, 35]}" string="Autor"/>
                 <field name="name"/>
                 <field name="nacionalidad"/>
             </tree>
@@ -25,6 +26,7 @@
         <field name="arch" type="xml">
             <form string="Autor">
                 <sheet>
+                    <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
                     <group>
                         <group>
                             <field name="name"/>
