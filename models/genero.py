@@ -8,6 +8,7 @@ class BibliotecaGenero(models.Model):
     _description = 'Genero de libros'
 
     name = fields.Char('Nombre', required=True)
+    color = fields.Integer('Color', required=True)  # ← Campo mágico!
     description = fields.Text('Descripción')
 
     libro_ids = fields.Many2many(

@@ -8,10 +8,7 @@
         <field name="name">biblioteca.prestamo.tree</field>
         <field name="model">biblioteca.prestamo</field>
         <field name="arch" type="xml">
-            <tree string="Préstamos"
-                  decoration-success="estado == 'devuelto'"
-                  decoration-danger="estado == 'retraso'"
-                  decoration-warning="estado == 'activo'">
+            <tree string="Préstamos">
 
                 <field name="name"/>
                 <field name="libro_id"/>
@@ -19,7 +16,12 @@
                 <field name="fecha_prestamo"/>
                 <field name="fecha_devolucion_prevista"/>
                 <field name="fecha_devolucion_real"/>
-                <field name="estado"/>
+                <field name="estado"
+                    widget="badge"
+                    decoration-success="estado == 'devuelto'"
+                    decoration-danger="estado == 'retraso'"
+                    decoration-warning="estado == 'activo'"
+                    />
             </tree>
         </field>
     </record>
@@ -87,6 +89,8 @@
         <field name="view_mode">tree,form</field>
         
     </record>
+
+    
 
 
     <!-- =========================

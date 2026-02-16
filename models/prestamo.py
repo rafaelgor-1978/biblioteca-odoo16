@@ -22,6 +22,7 @@ class BibliotecaPrestamo(models.Model):
         comodel_name='biblioteca.libro',
         string='Libro',
         required=True,
+        domain=[('estado', '=', 'disponible')],
         ondelete='cascade'  # Si se elimina el libro, se eliminan sus relaciones
     )
 
@@ -29,6 +30,7 @@ class BibliotecaPrestamo(models.Model):
         comodel_name='res.partner',
         string='Socio',
         required=True,
+        domain=[('es_socio_biblioteca', '=', True)],
         ondelete='cascade'  # Si se elimina el libro, se eliminan sus relaciones
     )
 
@@ -85,4 +87,4 @@ class BibliotecaPrestamo(models.Model):
             # 'prestamo.secuencia' debe coincidir con el <code> del XML
             vals['name'] = self.env['ir.sequence'].next_by_code(
                 'prestamo.secuencia') or 'Nuevo'
-        return super(BibliotecaPrestamo, self).create(vals)
+        return super().create(vals)

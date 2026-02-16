@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<record id="seq_mi_modelo" model="ir.sequence">
+    <field name="name">Secuencia Mi Modelo</field>
+    <field name="code">prestamo.secuencia</field>
+    <field name="prefix">PREST/%(year)s/</field>
+    <field name="padding">4</field>
+
+</record>
+</data>
