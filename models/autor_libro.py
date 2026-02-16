@@ -31,7 +31,7 @@ class BibliotecaAutorLibro(models.Model):
 
     orden = fields.Integer(
         string='Orden',
-        default=10,
+        default=1,
         help='Orden en el que se mostraran los autores (1=primer autor, 2=segundo autor, etc.)'
     )
 

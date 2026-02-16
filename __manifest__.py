@@ -32,6 +32,8 @@
         'views/autor.xml',
         'views/genero.xml',
         'views/autor_libro.xml',
+        'views/res_partner.xml',
+        'views/prestamo.xml',
 
     ],
 

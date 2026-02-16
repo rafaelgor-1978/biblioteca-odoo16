@@ -48,6 +48,12 @@ class BibliotecaLibro(models.Model):
         string='Generos'
     )
 
+    prestamo_ids = fields.One2many(
+        comodel_name='biblioteca.prestamo',
+        inverse_name='libro_id',
+        string='Préstamos'
+    )
+
     @api.constrains('ano_publicacion', 'fecha_adquisicion')
     def _check_fechas(self):
         fecha_actual = Date.today()

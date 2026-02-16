@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Heredar la vista form de res.partner -->
+    <record id="view_biblioteca_res_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.biblioteca</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="es_socio_biblioteca"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
