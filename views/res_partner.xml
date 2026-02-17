@@ -12,5 +12,27 @@
             </xpath>
         </field>
     </record>
+    <!-- =========================
+         ACCIÓN
+    ========================== -->
+    <record id="action_biblioteca_res_partner" model="ir.actions.act_window">
+        <field name="name">Contactos (Lista)</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form,kanban</field> <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un nuevo contacto
+            </p>
+        </field>
+    </record>
+    
+    <!-- =========================
+            MENÚ
+    ========================== -->
+    <menuitem id="menu_biblioteca_res_partner"
+              name="Socios"
+              parent="menu_biblioteca_root"
+              action="action_biblioteca_res_partner"
+              sequence="50"/>
+
     
 </odoo>
