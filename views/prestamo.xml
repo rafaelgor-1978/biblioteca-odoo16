@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- =========================
+         BUSQUEDA
+    ========================== -->
+    <record id="view_biblioteca_prestamo_search" model="ir.ui.view">
+        <field name="name">biblioteca.prestamo.search</field>
+        <field name="model">biblioteca.prestamo</field>   
+        <field name="type">search</field> <!-- Asegúrate de que el tipo sea correcto -->     
+        <field name="arch" type="xml">
 
+                <search string="Buscar referencia">
+                    <field name="name" string="Referencia prestamo"/>
+                    <field name="libro_id" string="Libro"/>
+                    <field name="socio_id" string="Socio"/>
+                    <filter string="Prestamos activos" 
+                            name="prestamos_activos_filter" 
+                            domain="[('estado', '=', 'activo')]"/>
+                    
+                    <separator/>
+                    <filter string="Prestamos con retraso" 
+                            name="prestamos_retraso_filter" 
+                            domain="[('estado', '=', 'retraso')]"/>
+                    
+                    <separator/>
+                    <filter string="Prestamos devueltos" 
+                            name="prestamos_devueltos_filter" 
+                            domain="[('estado', '=', 'devuelto')]"/>
+                    
+                    <separator/>
+                    
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Estado" 
+                                name="group_by_prestamo_estado" 
+                                domain="[]" 
+                                context="{'group_by': 'estado'}"/>
+                    </group>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Socio" 
+                                name="group_by_prestamo_socio" 
+                                domain="[]" 
+                                context="{'group_by': 'socio_id'}"/>
+                    </group>
+                </search>
+            
+                
+                
+                
+            
+        </field>
+    </record>
     <!-- =========================
          VISTA TREE
     ========================== -->
