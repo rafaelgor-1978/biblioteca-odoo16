@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
+    <!-- =========================
+         BUSQUEDA
+    ========================== -->
+    <record id="view_biblioteca_res_partner_search" model="ir.ui.view">
+        <field name="name">biblioteca.res.partner.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter string="Socios de Biblioteca" 
+                        name="es_socio_biblioteca_filter" 
+                        domain="[('es_socio_biblioteca', '=', True)]"/>
+                
+                <separator/>
+                
+                <filter string="Por Estado de Socio" 
+                        name="group_by_es_socio_biblioteca_filter" 
+                        context="{'group_by': 'es_socio_biblioteca'}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- =========================
+         LISTA
+    ========================== -->
+    <record id="view_biblioteca_res_partner_tree" model="ir.ui.view">
+        <field name="name">biblioteca.res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            
+            
+            <xpath expr="//field[@name='city']" position="after">
+                <field name="es_socio_biblioteca" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- =========================
+         FORMULARIO
+    ========================== -->
     <!-- Heredar la vista form de res.partner -->
     <record id="view_biblioteca_res_partner_form" model="ir.ui.view">
         <field name="name">biblioteca.res.partner.form</field>
@@ -18,8 +58,9 @@
     <record id="action_biblioteca_res_partner" model="ir.actions.act_window">
         <field name="name">Contactos (Lista)</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">tree,form,kanban</field> <field name="help" type="html">
-        <field name="domain">[('es_socio_biblioteca', '=', True)]</field>
+        <field name="view_mode">tree,form,kanban</field> 
+        <field name="context">{'search_default_es_socio_biblioteca_filter': 1}</field>
+        <field name="help" type="html">        
             <p class="o_view_nocontent_smiling_face">
                 Crea un nuevo contacto
             </p>
