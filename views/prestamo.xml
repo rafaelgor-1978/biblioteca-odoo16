@@ -100,8 +100,15 @@
                         
                         <div class="oe_title">
                             
-                                <separator string="Fecha Entrega:"/>
+                                <separator string="Fecha Entrega prevista:"/>
                                 <field name="fecha_devolucion_prevista" readonly="1"/>
+                                
+                            
+                        </div>
+                        <div class="oe_title">
+                            
+                                <separator string="Fecha Devolución:"/>
+                                <field name="fecha_devolucion_real" readonly="1"/>
                                 
                             
                         </div>
@@ -115,8 +122,8 @@
                         
                     </div>
                     
-               
-                    <group string="Libro / Socio">
+                    <div  style="border: 2px solid #eeeeee; border-radius: 5px; padding: 15px;">
+                    <group string="Datalles prestamo">
                         <group>
                             <field name="libro_id"/>
                             
@@ -125,23 +132,20 @@
                         <group>
                             <field name="socio_id"/>
                         </group>
-                    </group>
-
-                    <group string="Fechas">
                         <group>
-                            <field name="fecha_prestamo"/>
+                            <field name="fecha_prestamo"/> 
+                                                    
+                        </group>
+                        <group>
                             
-                        </group>
-                        <group>
-                            <field name="fecha_devolucion_real"/>
+                            <field name="notas"/>                           
                         </group>
                     </group>
+                    </div>
 
-                    <notebook>
-                        <page string="Observaciones">
-                            <field name="notas"/>
-                        </page>
-                    </notebook>
+                    
+
+                    
 
                 </sheet>
             </form>

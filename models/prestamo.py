@@ -42,8 +42,8 @@ class BibliotecaPrestamo(models.Model):
     fecha_devolucion_prevista = fields.Date(
         string="Fecha devolución prevista",
         compute='_calcular_devolucion',
-        default=fields.Date.today,
-        readonly=True
+        default=lambda self: fields.Date.today() + timedelta(days=15),
+        readonly=False
     )
     fecha_devolucion_real = fields.Date(
         string="Fecha devolución real",
@@ -63,13 +63,18 @@ class BibliotecaPrestamo(models.Model):
     )
 
     notas = fields.Text(
-        string='Observaciones del préstamo'
+        string='Observaciones'
     )
+    # @api.onchange('fecha_prestamo')
+    # def _calcular_devolucion(self):
+    #     if self.fecha_prestamo:
+    #         self.fecha_devolucion_prevista = self.fecha_prestamo + timedelta(days=15)
 
     @api.depends('fecha_prestamo')
     def _calcular_devolucion(self):
         for record in self:
-            record.fecha_devolucion_prevista = Date.today() + timedelta(days=15)
+            if record.fecha_prestamo:
+                record.fecha_devolucion_prevista = record.fecha_prestamo + timedelta(days=15)
 
     @api.constrains('fecha_devolucion_real')
     def _check_fechas(self):
