@@ -1,0 +1,8 @@
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*py[cod] 
+*$py.class
+*.so 
+.Python
+*.egg-info/ 
