@@ -19,6 +19,7 @@
         <field name="name">Contactos (Lista)</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,form,kanban</field> <field name="help" type="html">
+        <field name="domain">[('es_socio_biblioteca', '=', True)]</field>
             <p class="o_view_nocontent_smiling_face">
                 Crea un nuevo contacto
             </p>
