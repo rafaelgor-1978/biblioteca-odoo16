@@ -115,7 +115,7 @@
 
                         <page string="Autores">
                             <field name="autores_ids">
-                                <tree editable="bottom">
+                                <tree>
                                     <field name="orden" widget="handle"/>
                                     <field name="autor_id"/>
                                     <field name="es_autor_principal"/>

@@ -34,31 +34,55 @@
         <field name="name">biblioteca.prestamo.form</field>
         <field name="model">biblioteca.prestamo</field>
         <field name="arch" type="xml">
+            
             <form string="Préstamo">
+                
                 <sheet>
 
-                    <div class="oe_title">
-                        <h1>
-                            <field name="name" readonly="1"/>
-                        </h1>
-                    </div>
+                   
+                    <div class="d-flex justify-content-between align-items-center mb-3" style="border: 2px solid #eeeeee; border-radius: 5px; padding: 15px;">
+                        
+                        <div class="oe_title">
+                            
+                                <separator string="Referencia Prestamo:"/>
+                                <field name="name" readonly="1"/>
+                                
+                            
+                        </div>
+                        
+                        <div class="oe_title">
+                            
+                                <separator string="Fecha Entrega:"/>
+                                <field name="fecha_devolucion_prevista" readonly="1"/>
+                                
+                            
+                        </div>
+                        <div class="oe_title">
+                           <separator string="Estado:"/>
+                           <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>                            
+                        </div>
+                                
 
-                    <group>
+                        
+                        
+                    </div>
+                    
+               
+                    <group string="Libro / Socio">
                         <group>
                             <field name="libro_id"/>
-                            <field name="socio_id"/>
+                            
                         </group>
 
                         <group>
-                            <field name="estado" widget="statusbar"
-                                   statusbar_visible="activo,devuelto,retraso"/>
+                            <field name="socio_id"/>
                         </group>
                     </group>
 
                     <group string="Fechas">
                         <group>
                             <field name="fecha_prestamo"/>
-                            <field name="fecha_devolucion_prevista" readonly="1"/>
+                            
                         </group>
                         <group>
                             <field name="fecha_devolucion_real"/>
