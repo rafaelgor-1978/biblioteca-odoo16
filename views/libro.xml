@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- =========================
+         BUSQUEDA
+    ========================== -->
+    <record id="view_biblioteca_libro_search" model="ir.ui.view">
+        <field name="name">biblioteca.libro.search</field>
+        <field name="model">biblioteca.libro</field>   
+        <field name="type">search</field> <!-- Asegúrate de que el tipo sea correcto -->     
+        <field name="arch" type="xml">
 
+                <search string="Buscar Libros">
+                    <field name="name" string="Título"/>
+                    <field name="isbn"/>
+                    <filter string="Libros disponibles" 
+                            name="libros_disponibles_filter" 
+                            domain="[('estado', '=', 'disponible')]"/>
+                    
+                    <separator/>
+                    <filter string="Libros prestados" 
+                            name="libros_prestados_filter" 
+                            domain="[('estado', '=', 'prestado')]"/>
+                    
+                    <separator/>
+                    <filter string="Libros en reparacion" 
+                            name="libros_reparacion_filter" 
+                            domain="[('estado', '=', 'reparacion')]"/>
+                    
+                    <separator/>
+                    <filter string="Libros perdidos" 
+                            name="libros_perdidos_filter" 
+                            domain="[('estado', '=', 'perdido')]"/>
+                    
+                    <separator/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Estado" 
+                                name="group_by_estado" 
+                                domain="[]" 
+                                context="{'group_by': 'estado'}"/>
+                    </group>
+                </search>
+            
+                
+                
+                
+            
+        </field>
+    </record>
     <!-- =========================
             VISTA TREE
     ========================== -->
