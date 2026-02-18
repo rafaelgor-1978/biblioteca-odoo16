@@ -82,7 +82,7 @@ class BibliotecaPrestamo(models.Model):
 
         for record in self:
             if record.fecha_devolucion_real:
-                if record.fecha_devolucion_real <= fecha_actual:
+                if record.fecha_devolucion_real < fecha_actual:
                     raise ValidationError(
                         'La fecha de de devolucion debe ser mayor que la fecha actual, ESPABILA!!!')
 
@@ -92,4 +92,20 @@ class BibliotecaPrestamo(models.Model):
             # 'prestamo.secuencia' debe coincidir con el <code> del XML
             vals['name'] = self.env['ir.sequence'].next_by_code(
                 'prestamo.secuencia') or 'Nuevo'
-        return super().create(vals)
+            
+        prestamos = super().create(vals)
+
+        for prestamo in prestamos:
+            prestamo.libro_id.estado = 'prestado'
+        return prestamos
+    
+    def devolver_libro(self):
+        for record in self:
+            if record.estado == 'devuelto':
+                raise ValidationError("El estado del prestamo ya es devuelto!!!")
+            
+            record.fecha_devolucion_real = fields.Date.today()
+            record.estado ='devuelto'
+            record.libro_id.estado = 'disponible'
+
+

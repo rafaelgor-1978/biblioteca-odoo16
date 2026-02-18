@@ -110,11 +110,13 @@
                                 <separator string="Fecha Devolución:"/>
                                 <field name="fecha_devolucion_real" readonly="1"/>
                                 
+                                
                             
                         </div>
                         <div class="oe_title">
                            <separator string="Estado:"/>
-                           <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>                            
+                           <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>
+                           <!-- <field name="estado" widget="badge" decoration-warning="estado == 'activo'" decoration-success="estado == 'devuelto'" decoration-danger="estado == 'retraso'"/> -->
                         </div>
                                 
 
@@ -141,6 +143,13 @@
                             <field name="notas"/>                           
                         </group>
                     </group>
+                    <header>
+                        <button name="devolver_libro" 
+                            string="Devolución Libro" 
+                            type="object" 
+                            class="btn-success btn-lg w-100"
+                            attrs="{'invisible': [('estado', '!=', 'activo')]}"/>
+                    </header>
                     </div>
 
                     
