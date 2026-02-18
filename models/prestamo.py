@@ -93,6 +93,7 @@ class BibliotecaPrestamo(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code(
                 'prestamo.secuencia') or 'Nuevo'
             
+        vals['estado'] = 'activo'   
         prestamos = super().create(vals)
 
         for prestamo in prestamos:
@@ -108,5 +109,8 @@ class BibliotecaPrestamo(models.Model):
             record.estado ='devuelto'
             record.libro_id.estado = 'disponible'
             
+    def boton_fantasma(self):
+        # Este método no hace nada, solo sirve para que el botón XML sea válido
+        pass
 
 
