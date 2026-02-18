@@ -143,6 +143,16 @@
                                 </group>
                             </group>
                         </page>
+
+                        <page string="Autores">
+                            <field name="autores_ids">
+                                <tree>
+                                    <field name="orden" widget="handle"/>
+                                    <field name="autor_id"/>
+                                    <field name="es_autor_principal"/>
+                                </tree>
+                            </field>                            
+                        </page>        
                     
                         <page string="Otros">
                             <group>
@@ -155,18 +165,13 @@
                             <group>
                                 <field name="descripcion"/>
                             </group>
+                            <div string="Historico de prestamos">
+                                <field name="prestamo_ids"/>
+                            </div>
                         </page>
                     
 
-                        <page string="Autores">
-                            <field name="autores_ids">
-                                <tree>
-                                    <field name="orden" widget="handle"/>
-                                    <field name="autor_id"/>
-                                    <field name="es_autor_principal"/>
-                                </tree>
-                            </field>                            
-                        </page>                                           
+                                                           
 
                     </notebook>
 

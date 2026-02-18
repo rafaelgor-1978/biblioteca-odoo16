@@ -107,5 +107,6 @@ class BibliotecaPrestamo(models.Model):
             record.fecha_devolucion_real = fields.Date.today()
             record.estado ='devuelto'
             record.libro_id.estado = 'disponible'
+            
 
 
