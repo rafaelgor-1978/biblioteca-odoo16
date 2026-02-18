@@ -35,6 +35,7 @@
         'views/res_partner.xml',
         'views/prestamo.xml',
         'views/secuencia_data.xml',
+        'data/cron.xml',
 
     ],
 

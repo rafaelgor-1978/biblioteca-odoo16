@@ -43,6 +43,7 @@ class BibliotecaPrestamo(models.Model):
         string="Fecha devolución prevista",
         compute='_calcular_devolucion',
         default=lambda self: fields.Date.today() + timedelta(days=15),
+        store=True,
         readonly=False
     )
     fecha_devolucion_real = fields.Date(
@@ -91,14 +92,35 @@ class BibliotecaPrestamo(models.Model):
         if vals.get('name', 'Nuevo') == 'Nuevo':
             # 'prestamo.secuencia' debe coincidir con el <code> del XML
             vals['name'] = self.env['ir.sequence'].next_by_code(
-                'prestamo.secuencia') or 'Nuevo'
-            
-        vals['estado'] = 'activo'   
+                'prestamo.secuencia') or 'Nuevo'          
+        
         prestamos = super().create(vals)
 
         for prestamo in prestamos:
             prestamo.libro_id.estado = 'prestado'
         return prestamos
+    
+    @api.model
+    def _cron_actualizar_retrasados(self):
+        """
+        Ejecutado por Odoo automáticamente cada día.
+        Busca préstamos activos con fecha vencida y los marca como retrasado.
+        """
+
+        print("--- INICIANDO CRON DE PRESTAMOS ---")
+
+        hoy = fields.Date.today()   # Con () porque estamos DENTRO de un método:
+                                    # queremos el valor de hoy en este momento exacto.
+                                    # Aquí no hay ningún bug: el código se ejecuta
+                                    # cada vez que el cron corre.
+
+        prestamos_retrasados = self.search([
+            ('estado', '=',  'activo'),
+            ('fecha_devolucion_prevista', '<', hoy)
+        ])
+
+        # write() en recordset → una sola consulta SQL para todos los registros
+        prestamos_retrasados.write({'estado': 'retraso'})
     
     def devolver_libro(self):
         for record in self:
