@@ -84,8 +84,22 @@
         <field name="arch" type="xml">
             
             <form string="Préstamo">
+                    <header>
+                        <button name="devolver_libro" 
+                            string="Devolución Libro" 
+                            type="object" 
+                            class="btn-success btn-lg"
+                            attrs="{'invisible': [('estado', '!=', 'activo')]}"/>
+                            
+                        <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>
+                    </header>
+            
                 
                 <sheet>
+
+                    
+                    
+                    
 
                    
                     <div class="d-flex justify-content-between align-items-center mb-3" style="border: 2px solid #eeeeee; border-radius: 5px; padding: 15px;">
@@ -113,11 +127,7 @@
                                 
                             
                         </div>
-                        <div class="oe_title">
-                           <separator string="Estado:"/>
-                           <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>
-                           <!-- <field name="estado" widget="badge" decoration-warning="estado == 'activo'" decoration-success="estado == 'devuelto'" decoration-danger="estado == 'retraso'"/> -->
-                        </div>
+                        
                                 
 
                         
@@ -143,13 +153,7 @@
                             <field name="notas"/>                           
                         </group>
                     </group>
-                    <header>
-                        <button name="devolver_libro" 
-                            string="Devolución Libro" 
-                            type="object" 
-                            class="btn-success btn-lg w-100"
-                            attrs="{'invisible': [('estado', '!=', 'activo')]}"/>
-                    </header>
+                    
                     </div>
 
                     
