@@ -48,7 +48,16 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="es_socio_biblioteca"/>
+                <field name="es_socio_biblioteca" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Historico prestamo de libros" name="historio_prestamos">
+                    
+                        <div string="Historico de prestamos">
+                                <field name="prestamo_ids"/>
+                        </div>
+                    
+                </page>
             </xpath>
         </field>
     </record>
