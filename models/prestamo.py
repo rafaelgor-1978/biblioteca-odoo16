@@ -53,9 +53,9 @@ class BibliotecaPrestamo(models.Model):
     )
     estado = fields.Selection(
         selection=[
-            ('activo', 'Prestamo activo'),
-            ('devuelto', 'Devuelto'),
+            ('activo', 'Prestamo activo'),            
             ('retraso', 'Retrasado'),
+            ('devuelto', 'Devuelto'),
 
         ],
         string='Estado del prestamo',
@@ -134,5 +134,19 @@ class BibliotecaPrestamo(models.Model):
     def boton_fantasma(self):
         # Este método no hace nada, solo sirve para que el botón XML sea válido
         pass
+
+    def activar_prestamo(self):
+        for record in self:
+            hoy = fields.Date.today()
+            if record.fecha_devolucion_prevista:
+                if record.fecha_devolucion_prevista < hoy:
+                    record.estado = 'retraso'
+                    record.libro_id.estado = 'prestado'
+                else:
+                    record.estado = 'activo'
+                    record.libro_id.estado = 'prestado'
+
+
+            
 
 

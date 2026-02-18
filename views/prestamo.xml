@@ -98,8 +98,13 @@
                             class="btn-success btn-lg"
                             attrs="{'invisible': [('estado', '!=', 'devuelto'), ('id', '!=', False)]}"/>
                             
-                            
-                        <field name="estado" widget="statusbar" statusbar_visible="activo,retraso,devuelto"/>
+                        <button name="activar_prestamo" 
+                            string="Reactivar prestamo" 
+                            type="object" 
+                            class="btn-danger btn-lg"
+                            attrs="{'invisible': ['|',('estado', '!=', 'devuelto'), ('id', '=', False)]}"/>
+
+                        <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="activo,retraso,devuelto"/>
                     </header>
             
                 
