@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categoría para agrupar los grupos -->
+    <record id="module_category_biblioteca" model="ir.module.category">
+        <field name="name">Biblioteca</field>
+        <field name="description">Gestión de biblioteca</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- Grupo: Usuario biblioteca -->
+    <record id="group_biblioteca_user" model="res.groups">
+        <field name="name">Usuario Biblioteca</field>
+        <field name="category_id" ref="module_category_biblioteca"/>
+        <field name="comment">Puede consultar, crear y modificar libros y préstamos, pero no borrar</field>
+    </record>
+
+    <!-- Grupo: manager biblioteca -->
+    <record id="group_biblioteca_manager" model="res.groups">
+        <field name="name">Administrador Biblioteca</field>
+        <field name="category_id" ref="module_category_biblioteca"/>
+        <field name="implied_ids" eval="[(4, ref('group_biblioteca_user'))]"/>
+        <field name="comment">Control total sobre la biblioteca, consultar, crear, modificar y borrar</field>
+    </record>
+</odoo>

@@ -1,6 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_biblioteca_autor,biblioteca.autor,model_biblioteca_autor,base.group_user,1,1,1,1
-access_biblioteca_libro,biblioteca.libro,model_biblioteca_libro,base.group_user,1,1,1,1
-access_biblioteca_autor_libro,biblioteca.autor_libro,model_biblioteca_autor_libro,base.group_user,1,1,1,1
-access_biblioteca_genero,biblioteca.genero,model_biblioteca_genero,base.group_user,1,1,1,1
-access_biblioteca_prestamo,biblioteca.prestamo,model_biblioteca_prestamo,base.group_user,1,1,1,1
+access_biblioteca_autor_user,biblioteca.autor.user,model_biblioteca_autor,group_biblioteca_user,1,1,1,0
+access_biblioteca_libro_user,biblioteca.libro.user,model_biblioteca_libro,group_biblioteca_user,1,1,1,0
+access_biblioteca_autor_libro_user,biblioteca.autor_libro.user,model_biblioteca_autor_libro,group_biblioteca_user,1,1,1,0
+access_biblioteca_genero_user,biblioteca.genero.user,model_biblioteca_genero,group_biblioteca_user,1,1,1,0
+access_biblioteca_prestamo_user,biblioteca.prestamo.user,model_biblioteca_prestamo,group_biblioteca_user,1,1,1,0
+
+access_biblioteca_autor_manager,biblioteca.autor.manager,model_biblioteca_autor,group_biblioteca_manager,1,1,1,1
+access_biblioteca_libro_manager,biblioteca.libro.manager,model_biblioteca_libro,group_biblioteca_manager,1,1,1,1
+access_biblioteca_autor_libro_manager,biblioteca.autor_libro.manager,model_biblioteca_autor_libro,group_biblioteca_manager,1,1,1,1
+access_biblioteca_genero_manager,biblioteca.genero.manager,model_biblioteca_genero,group_biblioteca_manager,1,1,1,1
+access_biblioteca_prestamo_manager,biblioteca.prestamo.manager,model_biblioteca_prestamo,group_biblioteca_manager,1,1,1,1
