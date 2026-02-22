@@ -68,7 +68,28 @@ class BibliotecaLibro(models.Model):
                 if record.fecha_adquisicion >= fecha_actual:
                     raise ValidationError(
                         'La fecha de adquisición es mayor que la fecha actual, ESPABILA!!!')
-
+                
+                
+    @api.constrains('estado')
+    def _check_estado_transicion(self):
+        for record in self:
+            # Obtenemos el valor anterior del estado antes de que se guarde el nuevo
+            # En Odoo 16, record._origin.estado nos da el valor previo en base de datos
+            estado_anterior = record._origin.estado
+            
+            if estado_anterior == 'prestado' and record.estado in ['reparacion', 'perdido']:
+                raise ValidationError(
+                    "⚠️ Operación no permitida: Un libro que está actualmente 'Prestado' "
+                    "no puede pasar a 'Reparación' o 'Perdido' directamente. "
+                    "Primero debe ser devuelto (Activo)."
+                )
+            if estado_anterior == 'disponible' and record.estado == 'prestado':
+                raise ValidationError(
+                    "⚠️ Operación no permitida: Para establecer un libro como 'Prestado' "
+                    "debe generar un prestamo para este libro. "
+                   
+                )
+    
     _sql_constraints = [
         (
             'unique_isbn',
