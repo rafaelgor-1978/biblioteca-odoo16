@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diagrama ER - Módulo Biblioteca</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f4f6f9;
+    color: #1a1a2e;
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    padding: 1.4rem 3rem 1rem;
+    border-bottom: 2px solid #dde3ee;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    background: #fff;
+  }
+  header h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  header span { font-size: 0.75rem; color: #aab; font-family: 'IBM Plex Mono', monospace; }
+
+  .legend {
+    display: flex;
+    gap: 2.5rem;
+    padding: 0.8rem 3rem;
+    border-bottom: 1px solid #dde3ee;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: #aab;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #556;
+  }
+  .diagram-wrapper {
+    padding: 2rem 2rem 3rem;
+    overflow: auto;
+  }
+  svg { display: block; }
+  .field-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    fill: #334;
+  }
+  .field-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    fill: #99a;
+  }
+  .entity-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rel-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .note-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    fill: #99a;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Módulo Biblioteca — Diagrama ER</h1>
+  
+</header>
+
+<div class="legend">
+  <span class="legend-title">Notación:</span>
+
+  <div class="legend-item">
+    <svg width="90" height="24" viewBox="0 0 90 24">
+      <line x1="4" y1="12" x2="72" y2="12" stroke="#e07b00" stroke-width="2.5"/>
+      <line x1="4" y1="5" x2="4" y2="19" stroke="#e07b00" stroke-width="2.5"/>
+      <line x1="72" y1="12" x2="88" y2="5"  stroke="#e07b00" stroke-width="2.5"/>
+      <line x1="72" y1="12" x2="88" y2="12" stroke="#e07b00" stroke-width="2.5"/>
+      <line x1="72" y1="12" x2="88" y2="19" stroke="#e07b00" stroke-width="2.5"/>
+      <line x1="72" y1="5"  x2="72" y2="19" stroke="#e07b00" stroke-width="2.5"/>
+    </svg>
+    One2many &nbsp;(1 → ∞)
+  </div>
+
+  <div class="legend-item">
+    <svg width="90" height="24" viewBox="0 0 90 24">
+      <line x1="2"  y1="5"  x2="18" y2="12" stroke="#0077cc" stroke-width="2.5"/>
+      <line x1="2"  y1="12" x2="18" y2="12" stroke="#0077cc" stroke-width="2.5"/>
+      <line x1="2"  y1="19" x2="18" y2="12" stroke="#0077cc" stroke-width="2.5"/>
+      <line x1="18" y1="5"  x2="18" y2="19" stroke="#0077cc" stroke-width="2.5"/>
+      <line x1="18" y1="12" x2="86" y2="12" stroke="#0077cc" stroke-width="2.5"/>
+      <line x1="86" y1="5"  x2="86" y2="19" stroke="#0077cc" stroke-width="2.5"/>
+    </svg>
+    Many2one &nbsp;(∞ → 1)
+  </div>
+
+  <div class="legend-item">
+    <svg width="100" height="24" viewBox="0 0 100 24">
+      <line x1="2"  y1="5"  x2="18" y2="12" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <line x1="2"  y1="12" x2="18" y2="12" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <line x1="2"  y1="19" x2="18" y2="12" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <line x1="18" y1="5"  x2="18" y2="19" stroke="#cc2222" stroke-width="2.5"/>
+      <line x1="18" y1="12" x2="80" y2="12" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="6,3"/>
+      <line x1="80" y1="5"  x2="80" y2="19" stroke="#cc2222" stroke-width="2.5"/>
+      <line x1="80" y1="12" x2="98" y2="5"  stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <line x1="80" y1="12" x2="98" y2="12" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <line x1="80" y1="12" x2="98" y2="19" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="4,2"/>
+    </svg>
+    Many2many &nbsp;(∞ ↔ ∞)
+  </div>
+
+  <div class="legend-item" style="margin-left:auto; color:#aab; font-size:0.72rem;">
+    🔑 PK &nbsp;&nbsp; 🔗 FK/rel
+  </div>
+</div>
+
+
+<div class="diagram-wrapper">
+<svg width="1150" height="760" viewBox="0 0 1150 760" xmlns="http://www.w3.org/2000/svg">
+
+<!-- fondo suave con grid sutil -->
+<rect width="1150" height="760" fill="#f4f6f9"/>
+<defs>
+  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+  </pattern>
+</defs>
+<rect width="1150" height="760" fill="url(#grid)"/>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║   biblioteca.libro (centro)  ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(420, 258)">
+  <!-- sombra -->
+  <rect x="3" y="3" width="210" height="268" fill="#c8d4e8" rx="6"/>
+  <!-- cabecera -->
+  <rect x="0" y="0" width="210" height="32" fill="#1565c0" rx="6"/>
+  <rect x="0" y="26" width="210" height="6" fill="#1565c0"/>
+  <!-- cuerpo -->
+  <rect x="0" y="32" width="210" height="236" fill="#ffffff"/>
+  <rect x="0" y="264" width="210" height="4" fill="#ffffff" rx="0" ry="4"/>
+  <!-- borde -->
+  <rect x="0" y="0" width="210" height="268" fill="none" stroke="#1565c0" stroke-width="1.5" rx="6"/>
+
+  <text x="105" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">biblioteca.libro</text>
+
+  <!-- pk row -->
+  <rect x="0" y="32" width="210" height="20" fill="#e8f0fe"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="160" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="210" y2="52" stroke="#dde6f8" stroke-width="1"/>
+
+  <text x="10" y="66" class="field-name">name</text><text x="155" y="66" class="field-type">Char*</text>
+  <line x1="0" y1="70" x2="210" y2="70" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="84" class="field-name">isbn</text><text x="155" y="84" class="field-type">Char(13)</text>
+  <line x1="0" y1="88" x2="210" y2="88" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="102" class="field-name">editorial</text><text x="155" y="102" class="field-type">Char</text>
+  <line x1="0" y1="106" x2="210" y2="106" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="120" class="field-name">ano_publicacion</text><text x="158" y="120" class="field-type">Int</text>
+  <line x1="0" y1="124" x2="210" y2="124" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="138" class="field-name">fecha_adquisicion</text><text x="158" y="138" class="field-type">Date</text>
+  <line x1="0" y1="142" x2="210" y2="142" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="156" class="field-name">precio</text><text x="155" y="156" class="field-type">Float</text>
+  <line x1="0" y1="160" x2="210" y2="160" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="174" class="field-name">estado</text><text x="155" y="174" class="field-type">Selection</text>
+  <line x1="0" y1="178" x2="210" y2="178" stroke="#dde6f8" stroke-width="1"/>
+  <text x="10" y="192" class="field-name">active</text><text x="155" y="192" class="field-type">Boolean</text>
+
+  <!-- FK separator -->
+  <line x1="0" y1="198" x2="210" y2="198" stroke="#1565c0" stroke-width="1.5"/>
+  <rect x="0" y="198" width="210" height="22" fill="#fff8ee"/>
+  <text x="10" y="213" class="field-name" fill="#e07b00">🔗 autores_ids</text>
+  <text x="148" y="213" class="field-type" fill="#e07b00">One2many</text>
+  <line x1="0" y1="220" x2="210" y2="220" stroke="#dde6f8" stroke-width="1"/>
+
+  <rect x="0" y="220" width="210" height="22" fill="#fff0f0"/>
+  <text x="10" y="235" class="field-name" fill="#cc2222">🔗 genero_ids</text>
+  <text x="148" y="235" class="field-type" fill="#cc2222">Many2many</text>
+  <line x1="0" y1="242" x2="210" y2="242" stroke="#dde6f8" stroke-width="1"/>
+
+  <rect x="0" y="242" width="210" height="22" fill="#fff8ee"/>
+  <text x="10" y="257" class="field-name" fill="#e07b00">🔗 prestamo_ids</text>
+  <text x="148" y="257" class="field-type" fill="#e07b00">One2many</text>
+  <line x1="0" y1="264" x2="210" y2="264" stroke="#dde6f8" stroke-width="1"/>
+</g>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║ biblioteca.autor_libro       ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(408, 36)">
+  <rect x="3" y="3" width="222" height="202" fill="#d4c87a" rx="6" opacity="0.4"/>
+  <rect x="0" y="0" width="222" height="32" fill="#b7960a" rx="6"/>
+  <rect x="0" y="26" width="222" height="6" fill="#b7960a"/>
+  <rect x="0" y="32" width="222" height="170" fill="#fffdf0"/>
+  <rect x="0" y="198" width="222" height="4" fill="#fffdf0" rx="0" ry="4"/>
+  <rect x="0" y="0" width="222" height="202" fill="none" stroke="#b7960a" stroke-width="1.5" rx="6"/>
+
+  <rect x="118" y="8" width="94" height="16" fill="#7a6200" rx="3"/>
+  <text x="165" y="19" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#ffd54f">TABLA INTERMEDIA</text>
+  <text x="52" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">autor_libro</text>
+
+  <rect x="0" y="32" width="222" height="20" fill="#fef9e0"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="165" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="222" y2="52" stroke="#ede9b0" stroke-width="1"/>
+
+  <rect x="0" y="52" width="222" height="20" fill="#e8f5ff"/>
+  <text x="10" y="66" class="field-name" fill="#0077cc">🔗 libro_id</text><text x="152" y="66" class="field-type" fill="#0077cc">Many2one →</text>
+  <line x1="0" y1="72" x2="222" y2="72" stroke="#ede9b0" stroke-width="1"/>
+
+  <rect x="0" y="72" width="222" height="20" fill="#e8f5ff"/>
+  <text x="10" y="86" class="field-name" fill="#0077cc">🔗 autor_id</text><text x="152" y="86" class="field-type" fill="#0077cc">Many2one →</text>
+  <line x1="0" y1="92" x2="222" y2="92" stroke="#b7960a" stroke-width="1.5"/>
+
+  <text x="10" y="110" class="field-name">es_autor_principal</text><text x="170" y="110" class="field-type">Bool</text>
+  <line x1="0" y1="114" x2="222" y2="114" stroke="#ede9b0" stroke-width="1"/>
+  <text x="10" y="130" class="field-name">orden</text><text x="165" y="130" class="field-type">Integer</text>
+  <line x1="0" y1="136" x2="222" y2="136" stroke="#b7960a" stroke-width="1.5"/>
+
+  <text x="10" y="152" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#8a7020">UNIQUE(libro_id, autor_id)</text>
+  <text x="10" y="167" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#8a7020">ondelete='cascade'</text>
+  <text x="10" y="182" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#8a7020">_order = 'libro_id, orden'</text>
+</g>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║   biblioteca.autor (izq)     ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(36, 218)">
+  <rect x="3" y="3" width="197" height="182" fill="#b8d8c0" rx="6" opacity="0.5"/>
+  <rect x="0" y="0" width="197" height="32" fill="#1b6e35" rx="6"/>
+  <rect x="0" y="26" width="197" height="6" fill="#1b6e35"/>
+  <rect x="0" y="32" width="197" height="150" fill="#f4fbf6"/>
+  <rect x="0" y="178" width="197" height="4" fill="#f4fbf6" rx="0" ry="4"/>
+  <rect x="0" y="0" width="197" height="182" fill="none" stroke="#1b6e35" stroke-width="1.5" rx="6"/>
+
+  <text x="98" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">biblioteca.autor</text>
+
+  <rect x="0" y="32" width="197" height="20" fill="#eaf6ee"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="140" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="197" y2="52" stroke="#cde8d4" stroke-width="1"/>
+  <text x="10" y="66" class="field-name">name</text><text x="140" y="66" class="field-type">Char*</text>
+  <line x1="0" y1="70" x2="197" y2="70" stroke="#cde8d4" stroke-width="1"/>
+  <text x="10" y="84" class="field-name">nacionalidad</text><text x="140" y="84" class="field-type">Char</text>
+  <line x1="0" y1="88" x2="197" y2="88" stroke="#cde8d4" stroke-width="1"/>
+  <text x="10" y="102" class="field-name">biografia</text><text x="140" y="102" class="field-type">Text</text>
+  <line x1="0" y1="106" x2="197" y2="106" stroke="#cde8d4" stroke-width="1"/>
+  <text x="10" y="120" class="field-name">imagen</text><text x="140" y="120" class="field-type">Image</text>
+
+  <line x1="0" y1="124" x2="197" y2="124" stroke="#1b6e35" stroke-width="1.5"/>
+  <rect x="0" y="124" width="197" height="22" fill="#fff8ee"/>
+  <text x="10" y="139" class="field-name" fill="#e07b00">🔗 libros_ids</text>
+  <text x="140" y="139" class="field-type" fill="#e07b00">One2many</text>
+  <line x1="0" y1="146" x2="197" y2="146" stroke="#cde8d4" stroke-width="1"/>
+</g>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║   biblioteca.genero (der)    ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(750, 76)">
+  <rect x="3" y="3" width="197" height="192" fill="#e8b0b0" rx="6" opacity="0.4"/>
+  <rect x="0" y="0" width="197" height="32" fill="#b71c1c" rx="6"/>
+  <rect x="0" y="26" width="197" height="6" fill="#b71c1c"/>
+  <rect x="0" y="32" width="197" height="160" fill="#fff8f8"/>
+  <rect x="0" y="188" width="197" height="4" fill="#fff8f8" rx="0" ry="4"/>
+  <rect x="0" y="0" width="197" height="192" fill="none" stroke="#b71c1c" stroke-width="1.5" rx="6"/>
+
+  <text x="98" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">biblioteca.genero</text>
+
+  <rect x="0" y="32" width="197" height="20" fill="#fdecea"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="140" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="197" y2="52" stroke="#f5d0d0" stroke-width="1"/>
+  <text x="10" y="66" class="field-name">name</text><text x="140" y="66" class="field-type">Char* UPPER</text>
+  <line x1="0" y1="70" x2="197" y2="70" stroke="#f5d0d0" stroke-width="1"/>
+  <text x="10" y="84" class="field-name">color</text><text x="140" y="84" class="field-type">Integer*</text>
+  <line x1="0" y1="88" x2="197" y2="88" stroke="#f5d0d0" stroke-width="1"/>
+  <text x="10" y="102" class="field-name">description</text><text x="140" y="102" class="field-type">Text</text>
+
+  <line x1="0" y1="106" x2="197" y2="106" stroke="#b71c1c" stroke-width="1.5"/>
+  <rect x="0" y="106" width="197" height="22" fill="#fff0f0"/>
+  <text x="10" y="121" class="field-name" fill="#cc2222">🔗 libro_ids</text>
+  <text x="140" y="121" class="field-type" fill="#cc2222">Many2many</text>
+  <line x1="0" y1="128" x2="197" y2="128" stroke="#f5d0d0" stroke-width="1"/>
+
+  <text x="10" y="144" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#c08080">UNIQUE(name)</text>
+  <text x="10" y="159" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#c08080">@api.onchange + create + write</text>
+  <text x="10" y="174" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#c08080">→ fuerza mayúsculas</text>
+</g>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║ biblioteca.prestamo (abajo)  ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(420, 590)">
+  <rect x="3" y="3" width="212" height="162" fill="#c0b0e0" rx="6" opacity="0.4"/>
+  <rect x="0" y="0" width="212" height="32" fill="#5e35b1" rx="6"/>
+  <rect x="0" y="26" width="212" height="6" fill="#5e35b1"/>
+  <rect x="0" y="32" width="212" height="130" fill="#faf8ff"/>
+  <rect x="0" y="158" width="212" height="4" fill="#faf8ff" rx="0" ry="4"/>
+  <rect x="0" y="0" width="212" height="162" fill="none" stroke="#5e35b1" stroke-width="1.5" rx="6"/>
+
+  <text x="106" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">biblioteca.prestamo</text>
+
+  <rect x="0" y="32" width="212" height="20" fill="#ede8ff"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="160" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="212" y2="52" stroke="#ddd4f5" stroke-width="1"/>
+  <text x="10" y="66" class="field-name">name</text><text x="160" y="66" class="field-type">Char (seq)</text>
+  <line x1="0" y1="70" x2="212" y2="70" stroke="#ddd4f5" stroke-width="1"/>
+  <text x="10" y="84" class="field-name">estado</text><text x="160" y="84" class="field-type">Selection</text>
+  <line x1="0" y1="88" x2="212" y2="88" stroke="#ddd4f5" stroke-width="1"/>
+  <text x="10" y="102" class="field-name">fecha_prestamo</text><text x="160" y="102" class="field-type">Date</text>
+  <line x1="0" y1="106" x2="212" y2="106" stroke="#ddd4f5" stroke-width="1"/>
+  <text x="10" y="120" class="field-name">renovaciones</text><text x="160" y="120" class="field-type">Integer</text>
+
+  <line x1="0" y1="124" x2="212" y2="124" stroke="#5e35b1" stroke-width="1.5"/>
+  <rect x="0" y="124" width="212" height="20" fill="#e8f5ff"/>
+  <text x="10" y="138" class="field-name" fill="#0077cc">🔗 libro_id</text>
+  <text x="154" y="138" class="field-type" fill="#0077cc">Many2one →</text>
+  <line x1="0" y1="144" x2="212" y2="144" stroke="#ddd4f5" stroke-width="1"/>
+  <rect x="0" y="144" width="212" height="20" fill="#e8f5ff"/>
+  <text x="10" y="158" class="field-name" fill="#0077cc">🔗 socio_id</text>
+  <text x="154" y="158" class="field-type" fill="#0077cc">Many2one →</text>
+</g>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║   res.partner (der-abajo)    ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<g transform="translate(750, 496)">
+  <rect x="3" y="3" width="197" height="200" fill="#a0c8e8" rx="6" opacity="0.4"/>
+  <rect x="0" y="0" width="197" height="32" fill="#01579b" rx="6"/>
+  <rect x="0" y="26" width="197" height="6" fill="#01579b"/>
+  <rect x="0" y="32" width="197" height="168" fill="#f4faff"/>
+  <rect x="0" y="196" width="197" height="4" fill="#f4faff" rx="0" ry="4"/>
+  <rect x="0" y="0" width="197" height="200" fill="none" stroke="#01579b" stroke-width="1.5" rx="6"/>
+
+  <rect x="108" y="8" width="80" height="16" fill="#013d70" rx="3"/>
+  <text x="148" y="19" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#7ec8f8">_inherit</text>
+  <text x="50" y="21" text-anchor="middle" class="entity-title" fill="#ffffff">res.partner</text>
+
+  <rect x="0" y="32" width="197" height="20" fill="#e0f2ff"/>
+  <text x="10" y="46" class="field-name" fill="#b45309">🔑 id</text><text x="140" y="46" class="field-type">Integer</text>
+  <line x1="0" y1="52" x2="197" y2="52" stroke="#c5e4f8" stroke-width="1"/>
+  <text x="10" y="66" class="field-name">name</text><text x="140" y="66" class="field-type">Char (Odoo)</text>
+  <line x1="0" y1="70" x2="197" y2="70" stroke="#c5e4f8" stroke-width="1"/>
+  <text x="10" y="84" class="field-name" fill="#99b">... (campos nativos)</text>
+  <line x1="0" y1="90" x2="197" y2="90" stroke="#01579b" stroke-width="1.5"/>
+  <text x="10" y="106" class="field-name">es_socio_biblioteca</text><text x="155" y="106" class="field-type">Bool</text>
+  <line x1="0" y1="114" x2="197" y2="114" stroke="#01579b" stroke-width="1.5"/>
+  <rect x="0" y="114" width="197" height="22" fill="#fff8ee"/>
+  <text x="10" y="129" class="field-name" fill="#e07b00">🔗 prestamo_ids</text>
+  <text x="140" y="129" class="field-type" fill="#e07b00">One2many</text>
+  <line x1="0" y1="136" x2="197" y2="136" stroke="#c5e4f8" stroke-width="1"/>
+  <text x="10" y="152" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#4488aa">domain: es_socio=True</text>
+  <text x="10" y="167" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#4488aa">Extendido con _inherit</text>
+  <text x="10" y="182" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#4488aa">ondelete='cascade'</text>
+</g>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--                     C O N N E C T O R E S                        -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- REL 1: libro.autores_ids (O2M) ←——→ autor_libro.libro_id (M2O)   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- O2M naranja: barra en libro (y=258), crow's foot en autor_libro (y=238) -->
+<line x1="508" y1="258" x2="508" y2="238" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="498" y1="258" x2="518" y2="258" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="238" x2="508" y2="238" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="238" x2="508" y2="238" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="230" x2="508" y2="238" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="230" x2="508" y2="238" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="229" x2="497" y2="247" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="229" x2="519" y2="247" stroke="#e07b00" stroke-width="2.5"/>
+
+<!-- M2O azul: crow's foot en autor_libro (y=238), barra en libro (y=258) -->
+<line x1="532" y1="238" x2="532" y2="258" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="238" x2="532" y2="238" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="238" x2="532" y2="238" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="230" x2="532" y2="238" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="230" x2="532" y2="238" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="229" x2="521" y2="247" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="229" x2="543" y2="247" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="522" y1="258" x2="542" y2="258" stroke="#0077cc" stroke-width="2.5"/>
+
+<!-- Labels -->
+<rect x="548" y="236" width="78" height="15" fill="#fff" rx="3" stroke="#e07b00" stroke-width="1"/>
+<text x="587" y="247" text-anchor="middle" class="rel-label" fill="#e07b00">One2many</text>
+<rect x="548" y="252" width="78" height="15" fill="#fff" rx="3" stroke="#0077cc" stroke-width="1"/>
+<text x="587" y="263" text-anchor="middle" class="rel-label" fill="#0077cc">Many2one</text>
+<text x="587" y="230" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#aab">libro ←→ autor_libro</text>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- REL 2: autor.libros_ids (O2M) ←——→ autor_libro.autor_id (M2O)   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<path d="M233,282 C310,240 360,190 408,138" fill="none" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="224" y1="276" x2="240" y2="290" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="400" y1="133" x2="408" y2="138" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="408" y1="129" x2="408" y2="147" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="416" y1="133" x2="408" y2="138" stroke="#e07b00" stroke-width="2.5"/>
+
+<path d="M233,296 C315,256 362,205 411,152" fill="none" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="403" y1="147" x2="411" y2="152" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="411" y1="143" x2="411" y2="161" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="419" y1="147" x2="411" y2="152" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="224" y1="290" x2="240" y2="304" stroke="#0077cc" stroke-width="2.5"/>
+
+<rect x="268" y="224" width="78" height="15" fill="#fff" rx="3" stroke="#e07b00" stroke-width="1"/>
+<text x="307" y="235" text-anchor="middle" class="rel-label" fill="#e07b00">One2many</text>
+<rect x="268" y="240" width="78" height="15" fill="#fff" rx="3" stroke="#0077cc" stroke-width="1"/>
+<text x="307" y="251" text-anchor="middle" class="rel-label" fill="#0077cc">Many2one</text>
+<text x="307" y="219" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#aab">autor ←→ autor_libro</text>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- REL 3: libro.genero_ids (M2M) ←——→ genero.libro_ids              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<path d="M630,312 Q700,228 750,172" fill="none" stroke="#cc2222" stroke-width="2.5" stroke-dasharray="7,4"/>
+<line x1="622" y1="306" x2="630" y2="312" stroke="#cc2222" stroke-width="2.5"/>
+<line x1="630" y1="302" x2="630" y2="322" stroke="#cc2222" stroke-width="2.5"/>
+<line x1="638" y1="306" x2="630" y2="312" stroke="#cc2222" stroke-width="2.5"/>
+<line x1="742" y1="167" x2="750" y2="172" stroke="#cc2222" stroke-width="2.5"/>
+<line x1="750" y1="162" x2="750" y2="182" stroke="#cc2222" stroke-width="2.5"/>
+<line x1="758" y1="167" x2="750" y2="172" stroke="#cc2222" stroke-width="2.5"/>
+
+<rect x="678" y="218" width="78" height="15" fill="#fff" rx="3" stroke="#cc2222" stroke-width="1"/>
+<text x="717" y="229" text-anchor="middle" class="rel-label" fill="#cc2222">Many2many</text>
+<rect x="678" y="234" width="78" height="15" fill="#fff" rx="3" stroke="#bbb" stroke-width="1"/>
+<text x="717" y="245" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#99a">tabla auto Odoo</text>
+<text x="717" y="213" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#aab">libro ←→ genero</text>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- REL 4: libro.prestamo_ids (O2M) ←——→ prestamo.libro_id (M2O)    -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<line x1="508" y1="526" x2="508" y2="590" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="498" y1="526" x2="518" y2="526" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="590" x2="508" y2="590" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="590" x2="508" y2="590" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="598" x2="508" y2="590" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="598" x2="508" y2="590" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="497" y1="582" x2="497" y2="599" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="519" y1="582" x2="519" y2="599" stroke="#e07b00" stroke-width="2.5"/>
+
+<line x1="532" y1="590" x2="532" y2="526" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="590" x2="532" y2="590" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="590" x2="532" y2="590" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="598" x2="532" y2="590" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="598" x2="532" y2="590" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="521" y1="582" x2="521" y2="599" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="543" y1="582" x2="543" y2="599" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="522" y1="526" x2="542" y2="526" stroke="#0077cc" stroke-width="2.5"/>
+
+<rect x="548" y="548" width="78" height="15" fill="#fff" rx="3" stroke="#e07b00" stroke-width="1"/>
+<text x="587" y="559" text-anchor="middle" class="rel-label" fill="#e07b00">One2many</text>
+<rect x="548" y="564" width="78" height="15" fill="#fff" rx="3" stroke="#0077cc" stroke-width="1"/>
+<text x="587" y="575" text-anchor="middle" class="rel-label" fill="#0077cc">Many2one</text>
+<text x="587" y="542" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#aab">libro ←→ prestamo</text>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- REL 5: partner.prestamo_ids (O2M) ←——→ prestamo.socio_id (M2O) -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<path d="M750,596 Q710,650 634,668" fill="none" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="750" y1="586" x2="750" y2="606" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="626" y1="663" x2="634" y2="668" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="634" y1="659" x2="634" y2="678" stroke="#e07b00" stroke-width="2.5"/>
+<line x1="642" y1="663" x2="634" y2="668" stroke="#e07b00" stroke-width="2.5"/>
+
+<path d="M750,608 Q714,662 638,680" fill="none" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="630" y1="675" x2="638" y2="680" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="638" y1="671" x2="638" y2="690" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="646" y1="675" x2="638" y2="680" stroke="#0077cc" stroke-width="2.5"/>
+<line x1="750" y1="598" x2="750" y2="618" stroke="#0077cc" stroke-width="2.5"/>
+
+<rect x="678" y="618" width="78" height="15" fill="#fff" rx="3" stroke="#e07b00" stroke-width="1"/>
+<text x="717" y="629" text-anchor="middle" class="rel-label" fill="#e07b00">One2many</text>
+<rect x="678" y="634" width="78" height="15" fill="#fff" rx="3" stroke="#0077cc" stroke-width="1"/>
+<text x="717" y="645" text-anchor="middle" class="rel-label" fill="#0077cc">Many2one</text>
+<text x="717" y="613" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#aab">partner ←→ prestamo</text>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- NOTAS AL PIE                                                       -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+
+
+</svg>
+</div>
+
+</body>
+</html>
