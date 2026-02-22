@@ -101,7 +101,6 @@ Filtros por Estado: Acceso con un solo clic a libros disponibles, prestados, en 
 
 Agrupación Dinámica: Capacidad de reorganizar la lista completa de libros por su Estado de forma automática.
 
-🖥️ Interfaz de Usuario y Experiencia (UX) - Continuación
 🔄 Gestión de Préstamos (Flujo de Trabajo)
 La vista de Préstamos es el centro operativo del módulo y destaca por:
 
