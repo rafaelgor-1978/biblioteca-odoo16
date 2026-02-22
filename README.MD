@@ -12,7 +12,44 @@ Clasificación por Géneros: Categorización mediante etiquetas de colores y nor
 
 Integración con Contactos: Extensión del modelo nativo de Odoo para identificar y gestionar socios de la biblioteca.
 
-🛠️ Estructura de Datos
+🛠️ Estructura de Datos:
+
+biblioteca/
+├── .gitignore
+├── __init__.py
+├── __manifest__.py
+├── README.MD
+├── controllers/
+│   ├── __init__.py
+│   ├── controllers.py
+├── data/
+│   └── cron.xml
+├── documentacion/
+│   └── Diag-ENT-REL.html
+│   └── Diag-ENT-REL.pdf
+├── models/
+│   ├── __init__.py
+│   ├── autor.py
+│   ├── autor_libro.py
+│   ├── genero.py
+│   ├── libro.py
+│   ├── prestamo.py
+│   └── res_partner.py
+├── views/
+│   ├── autor.xml
+│   ├── autor_libro.xml
+│   ├── genero.xml
+│   ├── libro.xml
+│   ├── prestamo.xml
+│   ├── res_partner.xml
+│   └── secuencia_data.xml
+├── security/
+│   └── ir.model.access.csv
+│   └── security.xml
+└── static/
+    └── description/
+        └── icon.png
+
 El módulo se basa en los siguientes modelos técnicos:
 
 📚 Libros y Autores
@@ -138,3 +175,4 @@ Herencia de Modelos y Vistas: Uso de _inherit para ampliar res.partner sin rompe
 Vistas Dinámicas: Uso extensivo de atributos readonly y invisible basados en estados para evitar errores de usuario.
 
 Normalización de Datos: Los nombres de los géneros se limpian y pasan a mayúsculas automáticamente antes de guardarse.
+
