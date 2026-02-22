@@ -91,6 +91,12 @@
                             class="btn-success btn-lg"
                             attrs="{'invisible': ['|',('estado', '=', 'devuelto'), ('id', '=', False)]}"/>
 
+                        <button name="renovar_prestamo" 
+                            string="Renovar 15 días" 
+                            type="object" 
+                            class="btn-info btn-lg"
+                            attrs="{'invisible': ['|',('estado', '=', 'devuelto'), ('id', '=', False)]}"/>
+
                         <button name="boton_fantasma" 
                             string="Devolución Libro" 
                             type="object" 
@@ -99,7 +105,7 @@
                             attrs="{'invisible': [('estado', '!=', 'devuelto'), ('id', '!=', False)]}"/>
                             
                         <button name="activar_prestamo" 
-                            string="Reactivar prestamo" 
+                            string="Anular devolucion" 
                             type="object" 
                             class="btn-danger btn-lg"
                             attrs="{'invisible': ['|',('estado', '!=', 'devuelto'), ('id', '=', False)]}"/>
@@ -129,8 +135,13 @@
                             
                                 <separator string="Fecha Entrega prevista:"/>
                                 <field name="fecha_devolucion_prevista" readonly="1"/>
+                               
                                 
                             
+                        </div>
+                        <div class="oe_title">
+                                <separator string="Renovaciones:"/>
+                                <field name="renovaciones"  readonly="1"/>
                         </div>
                         <div class="oe_title">
                             

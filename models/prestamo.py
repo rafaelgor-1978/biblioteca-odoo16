@@ -66,6 +66,12 @@ class BibliotecaPrestamo(models.Model):
     notas = fields.Text(
         string='Observaciones'
     )
+
+    renovaciones = fields.Integer(
+        string='Renovaciones',
+        default=0
+
+    )
     # @api.onchange('fecha_prestamo')
     # def _calcular_devolucion(self):
     #     if self.fecha_prestamo:
@@ -134,10 +140,20 @@ class BibliotecaPrestamo(models.Model):
     def boton_fantasma(self):
         # Este método no hace nada, solo sirve para que el botón XML sea válido
         pass
+    def renovar_prestamo(self):
+        for record in self:
+            hoy = fields.Date.today()
+            if record.fecha_devolucion_prevista:
+                record.fecha_devolucion_prevista=record.fecha_devolucion_prevista + timedelta(days=15)
+                record.renovaciones += 1                
+                if record.fecha_devolucion_prevista >= hoy:
+                    record.estado = 'activo'
+
 
     def activar_prestamo(self):
         for record in self:
             hoy = fields.Date.today()
+            record.fecha_devolucion_real = None
             if record.fecha_devolucion_prevista:
                 if record.fecha_devolucion_prevista < hoy:
                     record.estado = 'retraso'
