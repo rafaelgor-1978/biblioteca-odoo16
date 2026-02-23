@@ -14,6 +14,7 @@ Integración con Contactos: Extensión del modelo nativo de Odoo para identifica
 
 🛠️ Estructura de Datos:
 
+```text
 biblioteca/
 ├── .gitignore
 ├── __init__.py
@@ -21,11 +22,11 @@ biblioteca/
 ├── README.MD
 ├── controllers/
 │   ├── __init__.py
-│   ├── controllers.py
+│   └── controllers.py
 ├── data/
 │   └── cron.xml
 ├── documentacion/
-│   └── Diag-ENT-REL.html
+│   ├── Diag-ENT-REL.html
 │   └── Diag-ENT-REL.pdf
 ├── models/
 │   ├── __init__.py
@@ -44,12 +45,12 @@ biblioteca/
 │   ├── res_partner.xml
 │   └── secuencia_data.xml
 ├── security/
-│   └── ir.model.access.csv
+│   ├── ir.model.access.csv
 │   └── security.xml
 └── static/
     └── description/
         └── icon.png
-
+        
 El módulo se basa en los siguientes modelos técnicos:
 
 📚 Libros y Autores
@@ -99,7 +100,6 @@ Busca "Biblioteca" e instálalo.
 📝 Notas de Desarrollo
 Versión de Odoo: 16.0
 
-Campo Mágico: Se utiliza el campo color en géneros para compatibilidad con vistas Kanban y etiquetas de color.
 
 Seguridad: Se han implementado dominios en los campos de búsqueda (ej. solo libros "disponibles" pueden ser seleccionados en nuevos préstamos).
 
@@ -180,4 +180,8 @@ Normalización de Datos: Los nombres de los géneros se limpian y pasan a mayús
 El sistema incluye controles de flujo de estados para evitar inconsistencias físicas:
 
 Restricción de Libros en Uso: Un libro con estado Prestado tiene bloqueada la transición a Reparación o Perdido. Esta validación garantiza que no se pierda la trazabilidad de un préstamo activo, obligando a procesar la devolución antes de cambiar la ubicación física o estado del ejemplar.
+
+📝 GitHub de la aplicación: 
+https://github.com/rafaelgor-1978/biblioteca-odoo16
+
 
