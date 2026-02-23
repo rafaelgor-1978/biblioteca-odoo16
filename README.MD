@@ -53,7 +53,8 @@ biblioteca/
 └── static/
     └── description/
         └── icon.png
-        
+```
+
 </details>
 
 El módulo se basa en los siguientes modelos técnicos:
