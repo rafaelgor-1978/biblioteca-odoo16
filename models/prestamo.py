@@ -53,7 +53,7 @@ class BibliotecaPrestamo(models.Model):
     )
     estado = fields.Selection(
         selection=[
-            ('activo', 'Prestamo activo'),            
+            ('activo', 'Prestamo activo'),
             ('retraso', 'Retrasado'),
             ('devuelto', 'Devuelto'),
 
@@ -81,7 +81,8 @@ class BibliotecaPrestamo(models.Model):
     def _calcular_devolucion(self):
         for record in self:
             if record.fecha_prestamo:
-                record.fecha_devolucion_prevista = record.fecha_prestamo + timedelta(days=15)
+                record.fecha_devolucion_prevista = record.fecha_prestamo + \
+                    timedelta(days=15)
 
     @api.constrains('fecha_devolucion_real')
     def _check_fechas(self):
@@ -98,14 +99,14 @@ class BibliotecaPrestamo(models.Model):
         if vals.get('name', 'Nuevo') == 'Nuevo':
             # 'prestamo.secuencia' debe coincidir con el <code> del XML
             vals['name'] = self.env['ir.sequence'].next_by_code(
-                'prestamo.secuencia') or 'Nuevo'          
-        
+                'prestamo.secuencia') or 'Nuevo'
+
         prestamos = super().create(vals)
 
         for prestamo in prestamos:
             prestamo.libro_id.estado = 'prestado'
         return prestamos
-    
+
     @api.model
     def _cron_actualizar_retrasados(self):
         """
@@ -115,10 +116,11 @@ class BibliotecaPrestamo(models.Model):
 
         print("--- INICIANDO CRON DE PRESTAMOS ---")
 
-        hoy = fields.Date.today()   # Con () porque estamos DENTRO de un método:
-                                    # queremos el valor de hoy en este momento exacto.
-                                    # Aquí no hay ningún bug: el código se ejecuta
-                                    # cada vez que el cron corre.
+        # Con () porque estamos DENTRO de un método:
+        hoy = fields.Date.today()
+        # queremos el valor de hoy en este momento exacto.
+        # Aquí no hay ningún bug: el código se ejecuta
+        # cada vez que el cron corre.
 
         prestamos_retrasados = self.search([
             ('estado', '=',  'activo'),
@@ -127,28 +129,36 @@ class BibliotecaPrestamo(models.Model):
 
         # write() en recordset → una sola consulta SQL para todos los registros
         prestamos_retrasados.write({'estado': 'retraso'})
-    
+
     def devolver_libro(self):
         for record in self:
             if record.estado == 'devuelto':
-                raise ValidationError("El estado del prestamo ya es devuelto!!!")
-            
+                raise ValidationError(
+                    "El estado del prestamo ya es devuelto!!!")
+
             record.fecha_devolucion_real = fields.Date.today()
-            record.estado ='devuelto'
-            record.libro_id.estado = 'disponible'
-            
+            record.estado = 'devuelto'
+            record.libro_id.with_context(
+                saltar_validation=True
+            ).write({
+                'estado': 'disponible'
+            })
+
+            # record.libro_id.estado = 'disponible'
+
     def boton_fantasma(self):
         # Este método no hace nada, solo sirve para que el botón XML sea válido
         pass
+
     def renovar_prestamo(self):
         for record in self:
             hoy = fields.Date.today()
             if record.fecha_devolucion_prevista:
-                record.fecha_devolucion_prevista=record.fecha_devolucion_prevista + timedelta(days=15)
-                record.renovaciones += 1                
+                record.fecha_devolucion_prevista = record.fecha_devolucion_prevista + \
+                    timedelta(days=15)
+                record.renovaciones += 1
                 if record.fecha_devolucion_prevista >= hoy:
                     record.estado = 'activo'
-
 
     def activar_prestamo(self):
         for record in self:
@@ -157,12 +167,17 @@ class BibliotecaPrestamo(models.Model):
             if record.fecha_devolucion_prevista:
                 if record.fecha_devolucion_prevista < hoy:
                     record.estado = 'retraso'
-                    record.libro_id.estado = 'prestado'
+                    # record.libro_id.estado = 'prestado'
+                    record.libro_id.with_context(
+                        saltar_validation=True
+                    ).write({
+                        'estado': 'prestado'
+                    })
                 else:
                     record.estado = 'activo'
-                    record.libro_id.estado = 'prestado'
-
-
-            
-
-
+                    # record.libro_id.estado = 'prestado'
+                    record.libro_id.with_context(
+                        saltar_validation=True
+                    ).write({
+                        'estado': 'prestado'
+                    })

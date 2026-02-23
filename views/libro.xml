@@ -126,7 +126,7 @@
         <field name="arch" type="xml">
             <form string="Libro">
             <header>
-                <field name="estado" widget="statusbar" options="{'clickable': '1'}"/>
+                <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="disponible,prestado,reparacion,perdido"/>
             </header>
                 <sheet>
                     
@@ -140,7 +140,7 @@
                                     <field name="ano_publicacion"/>
                                 </group>
                                 <group>
-                                    <field name="estado"/>
+                                    <field name="editorial"/>
                                     <field name="active"/>                            
                                     <field name="genero_ids" widget="many2many_tags"/>                                
                                 </group>
@@ -159,7 +159,7 @@
                     
                         <page string="Otros">
                             <group>
-                                <field name="editorial"/>
+                                
                                 <field name="fecha_adquisicion"/>
                                 <field name="precio"/>                            
                                 

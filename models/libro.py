@@ -11,7 +11,7 @@ class BibliotecaLibro(models.Model):
 
     # Campos básicos
     name = fields.Char(string='Título', required=True)
-    isbn = fields.Char(string='ISBN', size=13)
+    isbn = fields.Char(string='ISBN', required=True, size=13)
     editorial = fields.Char(string='Editorial')
     ano_publicacion = fields.Integer(string='Año de publicación')
     fecha_adquisicion = fields.Date(string='Año adquisicion')
@@ -68,28 +68,33 @@ class BibliotecaLibro(models.Model):
                 if record.fecha_adquisicion >= fecha_actual:
                     raise ValidationError(
                         'La fecha de adquisición es mayor que la fecha actual, ESPABILA!!!')
-                
-                
-    @api.constrains('estado')
-    def _check_estado_transicion(self):
-        for record in self:
-            # Obtenemos el valor anterior del estado antes de que se guarde el nuevo
-            # En Odoo 16, record._origin.estado nos da el valor previo en base de datos
-            estado_anterior = record._origin.estado
-            
-            if estado_anterior == 'prestado' and record.estado in ['reparacion', 'perdido']:
-                raise ValidationError(
-                    "⚠️ Operación no permitida: Un libro que está actualmente 'Prestado' "
-                    "no puede pasar a 'Reparación' o 'Perdido' directamente. "
-                    "Primero debe ser devuelto (Activo)."
-                )
-            if estado_anterior == 'disponible' and record.estado == 'prestado':
-                raise ValidationError(
-                    "⚠️ Operación no permitida: Para establecer un libro como 'Prestado' "
-                    "debe generar un prestamo para este libro. "
-                   
-                )
-    
+
+    def write(self, vals):
+        if self.env.context.get('saltar_validation'):
+            return super().write(vals)
+
+        if 'estado' in vals:
+            for record in self:
+                estado_anterior = record.estado
+                estado_nuevo = vals.get('estado')
+
+                if estado_anterior == 'prestado' and estado_nuevo in ['reparacion', 'perdido', 'disponible']:
+                    record.estado = estado_anterior
+                    raise ValidationError(
+                        "⚠️ Operación no permitida: Un libro que está actualmente 'Prestado' "
+                        "no puede pasar a 'Reparación', 'Perdido' o 'Disponible' directamente. "
+                        "Primero debe ser devuelto, es decir debe finalizar el prestamos activo."
+                    )
+
+                if estado_anterior in ['reparacion', 'perdido', 'disponible'] and estado_nuevo == 'prestado':
+                    record.estado = estado_anterior
+                    raise ValidationError(
+                        "⚠️ Operación no permitida: Para establecer un libro como 'Prestado' "
+                        "debe generar un préstamo para este libro."
+                    )
+
+        return super().write(vals)
+
     _sql_constraints = [
         (
             'unique_isbn',

@@ -176,3 +176,8 @@ Vistas Dinámicas: Uso extensivo de atributos readonly y invisible basados en es
 
 Normalización de Datos: Los nombres de los géneros se limpian y pasan a mayúsculas automáticamente antes de guardarse.
 
+🔐 Integridad de Estados
+El sistema incluye controles de flujo de estados para evitar inconsistencias físicas:
+
+Restricción de Libros en Uso: Un libro con estado Prestado tiene bloqueada la transición a Reparación o Perdido. Esta validación garantiza que no se pierda la trazabilidad de un préstamo activo, obligando a procesar la devolución antes de cambiar la ubicación física o estado del ejemplar.
+
