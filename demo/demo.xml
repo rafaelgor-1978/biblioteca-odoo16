@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== GENEROS ===================== -->
+    <record id="genero_fantasia" model="biblioteca.genero">
+        <field name="name">FANTASIA</field>
+        <field name="color">1</field>
+    </record>
+
+    <record id="genero_ciencia_ficcion" model="biblioteca.genero">
+        <field name="name">CIENCIA FICCION</field>
+        <field name="color">2</field>
+    </record>
+
+    <record id="genero_novela" model="biblioteca.genero">
+        <field name="name">NOVELA</field>
+        <field name="color">3</field>
+    </record>
+
+    <record id="genero_terror" model="biblioteca.genero">
+        <field name="name">TERROR</field>
+        <field name="color">4</field>
+    </record>
+
+    <record id="genero_historia" model="biblioteca.genero">
+        <field name="name">HISTORIA</field>
+        <field name="color">5</field>
+    </record>
+
+    <record id="genero_aventura" model="biblioteca.genero">
+        <field name="name">AVENTURA</field>
+        <field name="color">6</field>
+    </record>
+
+    <!-- ===================== AUTORES ===================== -->
+
+    <record id="autor_tolkien" model="biblioteca.autor">
+        <field name="name">J.R.R. Tolkien</field>
+        <field name="nacionalidad">Británica</field>
+    </record>
+
+    <record id="autor_rowling" model="biblioteca.autor">
+        <field name="name">J.K. Rowling</field>
+        <field name="nacionalidad">Británica</field>
+    </record>
+
+    <record id="autor_orwell" model="biblioteca.autor">
+        <field name="name">George Orwell</field>
+        <field name="nacionalidad">Británica</field>
+    </record>
+
+    <record id="autor_king" model="biblioteca.autor">
+        <field name="name">Stephen King</field>
+        <field name="nacionalidad">Estadounidense</field>
+    </record>
+
+    <record id="autor_asimov" model="biblioteca.autor">
+        <field name="name">Isaac Asimov</field>
+        <field name="nacionalidad">Estadounidense</field>
+    </record>
+
+    <record id="autor_cervantes" model="biblioteca.autor">
+        <field name="name">Miguel de Cervantes</field>
+        <field name="nacionalidad">Española</field>
+    </record>
+
+    <record id="autor_marquez" model="biblioteca.autor">
+        <field name="name">Gabriel García Márquez</field>
+        <field name="nacionalidad">Colombiana</field>
+    </record>
+
+    <record id="autor_shelley" model="biblioteca.autor">
+        <field name="name">Mary Shelley</field>
+        <field name="nacionalidad">Británica</field>
+    </record>
+
+    <record id="autor_brown" model="biblioteca.autor">
+        <field name="name">Dan Brown</field>
+        <field name="nacionalidad">Estadounidense</field>
+    </record>
+
+    <record id="autor_follett" model="biblioteca.autor">
+        <field name="name">Ken Follett</field>
+        <field name="nacionalidad">Británica</field>
+    </record>
+
+    <!-- ===================== LIBROS ===================== -->
+
+    <record id="libro_01" model="biblioteca.libro">
+        <field name="name">Libro Demo 1</field>
+        <field name="isbn">9780000001001</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1951</field>
+        <field name="fecha_adquisicion">2020-01-02</field>
+        <field name="precio">11.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_ciencia_ficcion')])]"/>
+    </record>
+
+    <record id="libro_02" model="biblioteca.libro">
+        <field name="name">Libro Demo 2</field>
+        <field name="isbn">9780000001002</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1952</field>
+        <field name="fecha_adquisicion">2020-01-03</field>
+        <field name="precio">12.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_novela')])]"/>
+    </record>
+
+    <record id="libro_03" model="biblioteca.libro">
+        <field name="name">Libro Demo 3</field>
+        <field name="isbn">9780000001003</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1953</field>
+        <field name="fecha_adquisicion">2020-01-04</field>
+        <field name="precio">13.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_terror')])]"/>
+    </record>
+
+    <record id="libro_04" model="biblioteca.libro">
+        <field name="name">Libro Demo 4</field>
+        <field name="isbn">9780000001004</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1954</field>
+        <field name="fecha_adquisicion">2020-01-05</field>
+        <field name="precio">14.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_historia')])]"/>
+    </record>
+
+    <record id="libro_05" model="biblioteca.libro">
+        <field name="name">Libro Demo 5</field>
+        <field name="isbn">9780000001005</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1955</field>
+        <field name="fecha_adquisicion">2020-01-06</field>
+        <field name="precio">15.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_aventura')])]"/>
+    </record>
+
+    <record id="libro_06" model="biblioteca.libro">
+        <field name="name">Libro Demo 6</field>
+        <field name="isbn">9780000001006</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1956</field>
+        <field name="fecha_adquisicion">2020-01-07</field>
+        <field name="precio">16.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_fantasia')])]"/>
+    </record>
+
+    <record id="libro_07" model="biblioteca.libro">
+        <field name="name">Libro Demo 7</field>
+        <field name="isbn">9780000001007</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1957</field>
+        <field name="fecha_adquisicion">2020-01-08</field>
+        <field name="precio">17.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_ciencia_ficcion')])]"/>
+    </record>
+
+    <record id="libro_08" model="biblioteca.libro">
+        <field name="name">Libro Demo 8</field>
+        <field name="isbn">9780000001008</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1958</field>
+        <field name="fecha_adquisicion">2020-01-09</field>
+        <field name="precio">18.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_novela')])]"/>
+    </record>
+
+    <record id="libro_09" model="biblioteca.libro">
+        <field name="name">Libro Demo 9</field>
+        <field name="isbn">9780000001009</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1959</field>
+        <field name="fecha_adquisicion">2020-01-10</field>
+        <field name="precio">19.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_terror')])]"/>
+    </record>
+
+    <record id="libro_10" model="biblioteca.libro">
+        <field name="name">Libro Demo 10</field>
+        <field name="isbn">9780000001010</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1960</field>
+        <field name="fecha_adquisicion">2020-01-11</field>
+        <field name="precio">20.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_historia')])]"/>
+    </record>
+
+    <record id="libro_11" model="biblioteca.libro">
+        <field name="name">Libro Demo 11</field>
+        <field name="isbn">9780000001011</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1961</field>
+        <field name="fecha_adquisicion">2020-01-12</field>
+        <field name="precio">21.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_aventura')])]"/>
+    </record>
+
+    <record id="libro_12" model="biblioteca.libro">
+        <field name="name">Libro Demo 12</field>
+        <field name="isbn">9780000001012</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1962</field>
+        <field name="fecha_adquisicion">2020-01-13</field>
+        <field name="precio">22.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_fantasia')])]"/>
+    </record>
+
+    <record id="libro_13" model="biblioteca.libro">
+        <field name="name">Libro Demo 13</field>
+        <field name="isbn">9780000001013</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1963</field>
+        <field name="fecha_adquisicion">2020-01-14</field>
+        <field name="precio">23.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_ciencia_ficcion')])]"/>
+    </record>
+
+    <record id="libro_14" model="biblioteca.libro">
+        <field name="name">Libro Demo 14</field>
+        <field name="isbn">9780000001014</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1964</field>
+        <field name="fecha_adquisicion">2020-01-15</field>
+        <field name="precio">24.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_novela')])]"/>
+    </record>
+
+    <record id="libro_15" model="biblioteca.libro">
+        <field name="name">Libro Demo 15</field>
+        <field name="isbn">9780000001015</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1965</field>
+        <field name="fecha_adquisicion">2020-01-16</field>
+        <field name="precio">25.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_terror')])]"/>
+    </record>
+
+    <record id="libro_16" model="biblioteca.libro">
+        <field name="name">Libro Demo 16</field>
+        <field name="isbn">9780000001016</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1966</field>
+        <field name="fecha_adquisicion">2020-01-17</field>
+        <field name="precio">26.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_historia')])]"/>
+    </record>
+
+    <record id="libro_17" model="biblioteca.libro">
+        <field name="name">Libro Demo 17</field>
+        <field name="isbn">9780000001017</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1967</field>
+        <field name="fecha_adquisicion">2020-01-18</field>
+        <field name="precio">27.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_aventura')])]"/>
+    </record>
+
+    <record id="libro_18" model="biblioteca.libro">
+        <field name="name">Libro Demo 18</field>
+        <field name="isbn">9780000001018</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1968</field>
+        <field name="fecha_adquisicion">2020-01-19</field>
+        <field name="precio">28.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_fantasia')])]"/>
+    </record>
+
+    <record id="libro_19" model="biblioteca.libro">
+        <field name="name">Libro Demo 19</field>
+        <field name="isbn">9780000001019</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1969</field>
+        <field name="fecha_adquisicion">2020-01-20</field>
+        <field name="precio">29.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_ciencia_ficcion')])]"/>
+    </record>
+
+    <record id="libro_20" model="biblioteca.libro">
+        <field name="name">Libro Demo 20</field>
+        <field name="isbn">9780000001020</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1970</field>
+        <field name="fecha_adquisicion">2020-01-21</field>
+        <field name="precio">30.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_novela')])]"/>
+    </record>
+
+    <record id="libro_21" model="biblioteca.libro">
+        <field name="name">Libro Demo 21</field>
+        <field name="isbn">9780000001021</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1971</field>
+        <field name="fecha_adquisicion">2020-01-22</field>
+        <field name="precio">31.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_terror')])]"/>
+    </record>
+
+    <record id="libro_22" model="biblioteca.libro">
+        <field name="name">Libro Demo 22</field>
+        <field name="isbn">9780000001022</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1972</field>
+        <field name="fecha_adquisicion">2020-01-23</field>
+        <field name="precio">32.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_historia')])]"/>
+    </record>
+
+    <record id="libro_23" model="biblioteca.libro">
+        <field name="name">Libro Demo 23</field>
+        <field name="isbn">9780000001023</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1973</field>
+        <field name="fecha_adquisicion">2020-01-24</field>
+        <field name="precio">33.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_aventura')])]"/>
+    </record>
+
+    <record id="libro_24" model="biblioteca.libro">
+        <field name="name">Libro Demo 24</field>
+        <field name="isbn">9780000001024</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1974</field>
+        <field name="fecha_adquisicion">2020-01-25</field>
+        <field name="precio">34.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_fantasia')])]"/>
+    </record>
+
+    <record id="libro_25" model="biblioteca.libro">
+        <field name="name">Libro Demo 25</field>
+        <field name="isbn">9780000001025</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1975</field>
+        <field name="fecha_adquisicion">2020-01-26</field>
+        <field name="precio">35.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_ciencia_ficcion')])]"/>
+    </record>
+
+    <record id="libro_26" model="biblioteca.libro">
+        <field name="name">Libro Demo 26</field>
+        <field name="isbn">9780000001026</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1976</field>
+        <field name="fecha_adquisicion">2020-01-27</field>
+        <field name="precio">36.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_novela')])]"/>
+    </record>
+
+    <record id="libro_27" model="biblioteca.libro">
+        <field name="name">Libro Demo 27</field>
+        <field name="isbn">9780000001027</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1977</field>
+        <field name="fecha_adquisicion">2020-01-28</field>
+        <field name="precio">37.0</field>
+        <field name="estado">perdido</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_terror')])]"/>
+    </record>
+
+    <record id="libro_28" model="biblioteca.libro">
+        <field name="name">Libro Demo 28</field>
+        <field name="isbn">9780000001028</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1978</field>
+        <field name="fecha_adquisicion">2020-01-01</field>
+        <field name="precio">38.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_historia')])]"/>
+    </record>
+
+    <record id="libro_29" model="biblioteca.libro">
+        <field name="name">Libro Demo 29</field>
+        <field name="isbn">9780000001029</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1979</field>
+        <field name="fecha_adquisicion">2020-01-02</field>
+        <field name="precio">39.0</field>
+        <field name="estado">disponible</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_aventura')])]"/>
+    </record>
+
+    <record id="libro_30" model="biblioteca.libro">
+        <field name="name">Libro Demo 30</field>
+        <field name="isbn">9780000001030</field>
+        <field name="editorial">Editorial Demo</field>
+        <field name="ano_publicacion">1980</field>
+        <field name="fecha_adquisicion">2020-01-03</field>
+        <field name="precio">40.0</field>
+        <field name="estado">reparacion</field>
+        <field name="genero_ids" eval="[(6,0,[ref('genero_fantasia')])]"/>
+    </record>
+
+    <!-- ===================== RELACIONES AUTOR-LIBRO ===================== -->
+
+    <record id="autor_libro_01" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_01"/>
+        <field name="autor_id" ref="autor_rowling"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_02" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_02"/>
+        <field name="autor_id" ref="autor_orwell"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_03" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_03"/>
+        <field name="autor_id" ref="autor_king"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_04" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_04"/>
+        <field name="autor_id" ref="autor_asimov"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_05" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_05"/>
+        <field name="autor_id" ref="autor_cervantes"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_06" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_06"/>
+        <field name="autor_id" ref="autor_marquez"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_07" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_07"/>
+        <field name="autor_id" ref="autor_shelley"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_08" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_08"/>
+        <field name="autor_id" ref="autor_brown"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_09" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_09"/>
+        <field name="autor_id" ref="autor_follett"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_10" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_10"/>
+        <field name="autor_id" ref="autor_tolkien"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_11" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_11"/>
+        <field name="autor_id" ref="autor_rowling"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_12" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_12"/>
+        <field name="autor_id" ref="autor_orwell"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_13" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_13"/>
+        <field name="autor_id" ref="autor_king"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_14" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_14"/>
+        <field name="autor_id" ref="autor_asimov"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_15" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_15"/>
+        <field name="autor_id" ref="autor_cervantes"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_16" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_16"/>
+        <field name="autor_id" ref="autor_marquez"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_17" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_17"/>
+        <field name="autor_id" ref="autor_shelley"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_18" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_18"/>
+        <field name="autor_id" ref="autor_brown"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_19" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_19"/>
+        <field name="autor_id" ref="autor_follett"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_20" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_20"/>
+        <field name="autor_id" ref="autor_tolkien"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_21" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_21"/>
+        <field name="autor_id" ref="autor_rowling"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_22" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_22"/>
+        <field name="autor_id" ref="autor_orwell"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_23" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_23"/>
+        <field name="autor_id" ref="autor_king"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_24" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_24"/>
+        <field name="autor_id" ref="autor_asimov"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_25" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_25"/>
+        <field name="autor_id" ref="autor_cervantes"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_26" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_26"/>
+        <field name="autor_id" ref="autor_marquez"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_27" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_27"/>
+        <field name="autor_id" ref="autor_shelley"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_28" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_28"/>
+        <field name="autor_id" ref="autor_brown"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_29" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_29"/>
+        <field name="autor_id" ref="autor_follett"/>
+        <field name="orden">1</field>
+    </record>
+
+    <record id="autor_libro_30" model="biblioteca.autor_libro">
+        <field name="libro_id" ref="libro_30"/>
+        <field name="autor_id" ref="autor_tolkien"/>
+        <field name="orden">1</field>
+    </record>
+
+</odoo>

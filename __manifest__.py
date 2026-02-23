@@ -37,5 +37,9 @@
         'data/cron.xml',
 
     ],
+    'demo': [
+        # Aquí van los archivos que SOLO se cargan si "Load demo data" está activo
+        'demo/demo.xml',        
+    ],
 
 }
