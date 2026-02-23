@@ -104,7 +104,12 @@ class BibliotecaPrestamo(models.Model):
         prestamos = super().create(vals)
 
         for prestamo in prestamos:
-            prestamo.libro_id.estado = 'prestado'
+            # prestamo.libro_id.estado = 'prestado'
+            prestamo.libro_id.with_context(
+                saltar_validation=True
+            ).write({
+                'estado': 'prestado'
+            })
         return prestamos
 
     @api.model

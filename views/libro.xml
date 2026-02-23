@@ -125,12 +125,41 @@
         <field name="model">biblioteca.libro</field>
         <field name="arch" type="xml">
             <form string="Libro">
-            <header>
+            <header>                
                 <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="disponible,prestado,reparacion,perdido"/>
             </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                            <button name="action_filtrar_prestamos"
+                                    type="object" 
+                                    class="oe_stat_button" 
+                                    icon="fa-book">
+                                    <field name="prestamos_totales_count" widget="statinfo" string="Prestamos Totales"/>
+                            </button>
+                            <button name="action_filtrar_prestamos"                                 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-check"
+                                context="{'estado': 'activo'}">
+                                <field name="prestamos_activos_count" widget="statinfo" string="Prestamos Activos"/>
+                                
+                            </button>
+                            <button name="action_filtrar_prestamos"                                 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-arrow-left"
+                                context="{'estado': 'devuelto'}">
+                                <field name="prestamos_devueltos_count" widget="statinfo" string="Prestamos Devueltos"/>
+                                
+                            </button>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        
+                    </div>
+                
                     
                     <notebook>
+                    
                         <page string="Información General">
                             <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
                             <group>
@@ -138,13 +167,23 @@
                                     <field name="name"/>
                                     <field name="isbn"/>                            
                                     <field name="ano_publicacion"/>
+                                    <field name="fecha_adquisicion"/>
+                                               
                                 </group>
                                 <group>
+                                    <field name="precio"/> 
                                     <field name="editorial"/>
                                     <field name="active"/>                            
                                     <field name="genero_ids" widget="many2many_tags"/>                                
                                 </group>
+                                
+                                <separator string="Breve sinopsis:"/>
+                                <field name="descripcion" placeholder="Escribe aquí..."/>
+                                
                             </group>
+                            
+                            
+                             
                         </page>
 
                         <page string="Autores">
@@ -157,17 +196,9 @@
                             </field>                            
                         </page>        
                     
-                        <page string="Otros">
-                            <group>
-                                
-                                <field name="fecha_adquisicion"/>
-                                <field name="precio"/>                            
-                                
-                                
-                            </group>
-                            <group>
-                                <field name="descripcion"/>
-                            </group>
+                        <page string="Prestamos">
+                            
+                           
                             <div string="Historico de prestamos">
                                 <field name="prestamo_ids"/>
                             </div>

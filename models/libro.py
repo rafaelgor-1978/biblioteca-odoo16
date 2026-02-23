@@ -54,6 +54,62 @@ class BibliotecaLibro(models.Model):
         string='Préstamos'
     )
 
+    prestamos_totales_count = fields.Integer(compute='_compute_prestamos_totales')
+    prestamos_activos_count = fields.Integer(compute='_compute_prestamos_activos')
+    prestamos_devueltos_count = fields.Integer(compute='_compute_prestamos_devueltos')
+
+    def _compute_prestamos_totales(self):
+        for record in self:
+            record.prestamos_totales_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id)])
+
+
+    def _compute_prestamos_activos(self):
+        for record in self:
+            record.prestamos_activos_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id), ('estado', '!=', 'devuelto')])
+
+    def _compute_prestamos_devueltos(self):
+        for record in self:
+            record.prestamos_devueltos_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id), ('estado', '=', 'devuelto')])
+
+
+    def action_filtrar_prestamos(self):
+        # 1. Definimos el dominio (las condiciones de filtrado)
+        # Ejemplo: campo 'state' es 'draft' y 'priority' es '3' (Alta)
+        condiciones = self.env.context.get('estado', False)
+
+        if condiciones:
+            if condiciones == 'activo': 
+                estado = 'devuelto'
+                comparador = '!=' 
+                miga = 'Prestamos Activos'                      
+                
+            else:
+                estado = condiciones
+                comparador = '='
+                miga = 'Prestamos Devueltos' 
+        else:
+            estado = ''
+            comparador = '!='
+            miga = 'Prestamos Totales'
+
+
+        my_domain = [
+            
+            ('estado', comparador, estado),
+            ('libro_id', '=', self.id) # Relacionado con el registro actual
+        ]
+
+        # 2. Retornamos la acción de ventana
+        return {
+            'name': miga,
+            'type': 'ir.actions.act_window',
+            'res_model': 'biblioteca.prestamo', # El modelo que quieres listar
+            'view_mode': 'tree,form',
+            'domain': my_domain,
+            'context': {'default_libro_id': self.id}, # Para que al crear uno nuevo, ya esté vinculado
+            'target': 'current', # 'current' recarga la vista, 'new' abre un pop-up
+        }
+
     @api.constrains('ano_publicacion', 'fecha_adquisicion')
     def _check_fechas(self):
         fecha_actual = Date.today()
