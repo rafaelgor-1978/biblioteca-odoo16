@@ -14,6 +14,9 @@ Integración con Contactos: Extensión del modelo nativo de Odoo para identifica
 
 🛠️ Estructura de Datos:
 
+<details>
+  <summary><b>📂 Ver estructura del proyecto (clic para desplegar)</b></summary>
+
 ```text
 biblioteca/
 ├── .gitignore
@@ -51,6 +54,8 @@ biblioteca/
     └── description/
         └── icon.png
         
+</details>
+
 El módulo se basa en los siguientes modelos técnicos:
 
 📚 Libros y Autores
