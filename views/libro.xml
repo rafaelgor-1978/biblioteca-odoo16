@@ -77,38 +77,78 @@
         <field name="name">biblioteca.libro.kanban</field>
         <field name="model">biblioteca.libro</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile" sample="1">
+            <kanban sample="1" class="o_kanban_dashboard">
                 <field name="id"/>
                 <field name="imagen"/>
+                <field name="estado"/>
+                <field name="genero_ids"/>
+                
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                        <style>
+                            .libro-card {
+                                transition: all 0.3s ease-in-out;
+                                cursor: pointer;
+                            }
+                            .libro-card:hover {
+                                transform: translateY(-5px); /* Sube un poco */
+                                shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+                            }
+                            .libro-img-container {
+                                transition: transform 0.5s ease;
+                                overflow: hidden;
+                            }
+                            .libro-card:hover .libro-img-container {
+                                transform: scale(1.05); /* Zoom suave a la imagen */
+                            }
+                        </style>
+
+                        <div t-attf-class="oe_kanban_global_click p-0 pb-2 shadow-sm border-0 rounded-3 overflow-hidden libro-card" 
+                            style="width: 250px; background-color: #ffffff; margin-bottom: 15px;">
                             
-                            <div class="o_kanban_image_fill_left d-none d-md-block" 
-                                t-attf-style="background-image:url('#{kanban_image('biblioteca.libro', 'imagen', record.id.raw_value)}')">
+                            <div class="libro-img-container" 
+                                t-attf-style="background-image:url('#{kanban_image('biblioteca.libro', 'imagen', record.id.raw_value)}'); 
+                                            height: 280px; 
+                                            background-size: contain; 
+                                            background-repeat: no-repeat; 
+                                            background-position: center; 
+                                            background-color: #f8f9fa; 
+                                            position: relative;">
+                                
+                                <div style="position: absolute; top: 10px; right: 10px; z-index: 2;">
+                                    <span t-attf-class="badge rounded-pill shadow-sm border-0
+                                        #{record.estado.raw_value == 'disponible' ? 'text-bg-success' : 
+                                        record.estado.raw_value == 'prestado' ? 'text-bg-danger' : 
+                                        record.estado.raw_value == 'reparacion' ? 'text-bg-warning' : 'text-bg-secondary'}"
+                                        style="padding: 6px 12px;">
+                                        <field name="estado"/>
+                                    </span>
+                                </div>
                             </div>
 
-                            <div class="oe_kanban_details">
-                                <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                </strong>
-                                <div class="o_kanban_record_subtitle">
-                                    <field name="editorial"/>
+                            <div class="px-3 py-2">
+                                <div class="mb-1">
+                                    <strong class="o_kanban_record_title" style="font-size: 1.1rem; color: #212529;">
+                                        <field name="name"/>
+                                    </strong>
                                 </div>
-                                <ul>
-                                    <li><strong>ISBN:</strong> <field name="isbn"/></li>
-                                    <li><strong>Año:</strong> <field name="ano_publicacion"/></li>
-                                    <li>
-                                        <span t-attf-class="badge rounded-pill 
-                                            #{record.estado.raw_value == 'disponible' ? 'text-bg-success' : 
-                                            record.estado.raw_value == 'prestado' ? 'text-bg-info' : 
-                                            record.estado.raw_value == 'reparacion' ? 'text-bg-warning' : 
-                                            record.estado.raw_value == 'perdido' ? 'text-bg-danger' : 'text-bg-secondary'}">
-                                            <field name="estado"/>
-                                        </span>
-                                        
-                                    </li>
-                                </ul>
+
+                                <div class="text-muted mb-2" style="font-size: 0.85rem;">
+                                    <i class="fa fa-university me-1"/> <field name="editorial"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <field name="genero_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top" style="font-size: 0.8rem;">
+                                    <div class="text-muted small">
+                                        <i class="fa fa-barcode me-1"/> <field name="isbn"/>
+                                    </div>
+                                    <div class="badge text-bg-light border text-muted">
+                                        <field name="ano_publicacion"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </t>
@@ -116,7 +156,6 @@
             </kanban>
         </field>
     </record>
-
     <!-- =========================
             VISTA FORM
     ========================== -->
@@ -154,9 +193,7 @@
                                     <field name="prestamos_totales_count" widget="statinfo" string="Prestamos Totales"/>
                             </button>
                     </div>
-                    <div class="oe_button_box" name="button_box">
-                        
-                    </div>
+                   
                 
                     
                     <notebook>
@@ -226,7 +263,7 @@
     <record id="action_biblioteca_libro" model="ir.actions.act_window">
         <field name="name">Libros</field>
         <field name="res_model">biblioteca.libro</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
 
