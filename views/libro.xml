@@ -168,7 +168,8 @@
                 <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="disponible,prestado,reparacion,perdido"/>
             </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
+                    <div class="oe_button_box" name="button_box">              
+                                        
                            
                             <button name="action_filtrar_prestamos"                                 
                                 type="object" 
@@ -193,13 +194,8 @@
                                     <field name="prestamos_totales_count" widget="statinfo" string="Prestamos Totales"/>
                             </button>
                     </div>
-                   
-                
                     
-                    <notebook>
-                    
-                        <page string="Información General">
-                            <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
+                    <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
                             <group>
                                 <group>
                                     <field name="name"/>
@@ -223,16 +219,15 @@
                                 <field name="descripcion" placeholder="Escribe aquí..."/>
                                 
                             </group>
-                            
-                            
-                             
-                        </page>
-
+                
+                    
+                    <notebook>                    
+                        
                         <page string="Autores">
                             <field name="autores_ids">
                                 <tree>
                                     <field name="orden" widget="handle"/>
-                                    <field name="autor_id"/>
+                                    <field name="autor_id" string='Autores'/>
                                     <field name="es_autor_principal"/>
                                 </tree>
                             </field>                            

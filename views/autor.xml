@@ -28,11 +28,11 @@
                 <sheet>
                     <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
                     <group>
-                        <group>
+                       
                             <field name="name"/>
                             <field name="nacionalidad"/>
                             <field name="biografia"/>
-                        </group>
+                        
                     </group>
 
                     <notebook>
@@ -40,7 +40,7 @@
                         <page string="Libros publicados">
                             <field name="libros_ids">
                                 <tree>
-                                    <field name="libro_id"/>
+                                    <field name="libro_id" string='Libros'/>
                                     <field name="es_autor_principal"/>
                                 </tree>
                             </field>
