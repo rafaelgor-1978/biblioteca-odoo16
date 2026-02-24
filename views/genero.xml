@@ -10,6 +10,7 @@
         <field name="arch" type="xml">
             <tree string="Géneros">
                 <field name="name"/>
+                <field name="color" widget="color_picker"/>
             </tree>
         </field>
     </record>

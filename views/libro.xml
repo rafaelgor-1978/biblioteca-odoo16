@@ -130,12 +130,7 @@
             </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                            <button name="action_filtrar_prestamos"
-                                    type="object" 
-                                    class="oe_stat_button" 
-                                    icon="fa-book">
-                                    <field name="prestamos_totales_count" widget="statinfo" string="Prestamos Totales"/>
-                            </button>
+                           
                             <button name="action_filtrar_prestamos"                                 
                                 type="object" 
                                 class="oe_stat_button" 
@@ -151,6 +146,12 @@
                                 context="{'estado': 'devuelto'}">
                                 <field name="prestamos_devueltos_count" widget="statinfo" string="Prestamos Devueltos"/>
                                 
+                            </button>
+                             <button name="action_filtrar_prestamos"
+                                    type="object" 
+                                    class="oe_stat_button" 
+                                    icon="fa-book">
+                                    <field name="prestamos_totales_count" widget="statinfo" string="Prestamos Totales"/>
                             </button>
                     </div>
                     <div class="oe_button_box" name="button_box">
@@ -174,7 +175,11 @@
                                     <field name="precio"/> 
                                     <field name="editorial"/>
                                     <field name="active"/>                            
-                                    <field name="genero_ids" widget="many2many_tags"/>                                
+                                    <field name="genero_ids" 
+                                        widget="many2many_tags"
+                                        options="{'color_field': 'color', 'no_quick_create': True}"
+                                    
+                                    />                                
                                 </group>
                                 
                                 <separator string="Breve sinopsis:"/>
