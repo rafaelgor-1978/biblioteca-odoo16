@@ -109,6 +109,19 @@ class BibliotecaLibro(models.Model):
             'context': {'default_libro_id': self.id}, # Para que al crear uno nuevo, ya esté vinculado
             'target': 'current', # 'current' recarga la vista, 'new' abre un pop-up
         }
+    
+    def action_libro_prestamo(self):
+        """ Abre el formulario de nuevo préstamo con el libro precargado """
+        return {
+            'name': 'Nuevo Préstamo',
+            'type': 'ir.actions.act_window',
+            'res_model': 'biblioteca.prestamo', # El modelo de destino
+            'view_mode': 'form',
+            'target': 'new', # Esto hace que se abra en un popup (ventana modal)
+            'context': {
+                'default_libro_id': self.id, # Pasa el ID actual al campo Many2one
+            }
+        }
 
     @api.constrains('ano_publicacion', 'fecha_adquisicion')
     def _check_fechas(self):

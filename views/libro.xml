@@ -53,10 +53,14 @@
         <field name="name">biblioteca.libro.tree</field>
         <field name="model">biblioteca.libro</field>
         <field name="arch" type="xml">
-            <tree string="Libros">
+            <tree string="Libros" 
+              decoration-muted="estado == 'perdido'" 
+              decoration-warning="estado == 'reparacion'"
+              sample="1">
+                <field name="imagen" widget="image" options="{'size': [40, 40]}" class="oe_avatar" string="Portada"/>
+                
+                <field name="name" decoration-bf="1"/>
             
-                <field name="imagen" widget="image" options="{'size': [35, 35]}" string="Portada"/>
-                <field name="name"/>
                 <field name="isbn"/>
                 <field name="estado"
                     widget="badge"
@@ -65,7 +69,15 @@
                     decoration-warning="estado == 'reparacion'" 
                     decoration-danger="estado == 'perdido'"
                     />
-                <field name="ano_publicacion"/> 
+                <button name="action_libro_prestamo" 
+                    type="object" 
+                    string="Prestar"                      
+                    icon="fa-share-square-o" 
+                    class="btn-primary"
+                    attrs="{'invisible': [('estado', '!=', 'disponible')]}"/>
+                
+                <field name="ano_publicacion"/>
+                
                
             </tree>
         </field>
@@ -150,6 +162,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <button t-if="record.estado.raw_value == 'disponible'"
+                                    name="action_libro_prestamo" 
+                                    type="object" 
+                                    class="btn btn-primary w-100 btn-prestar border-0 shadow-none py-2">
+                                <i class="fa fa-share-square-o me-2"/> Prestar Libro
+                            </button>
+                        
+                            <div t-if="record.estado.raw_value != 'disponible'" class="py-1"/>
                         </div>
                     </t>
                 </templates>
