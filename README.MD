@@ -1,6 +1,22 @@
 Módulo de Gestión de Biblioteca (Odoo 16)
 Este módulo personalizado para Odoo 16 permite la gestión integral de una biblioteca, permitiendo administrar libros, autores, géneros y el ciclo de vida de los préstamos a socios.
 
+🛡️ Seguridad y Roles de UsuarioEste módulo implementa un control de acceso basado en grupos (RBAC). Los permisos están divididos en dos niveles de acceso dentro de la categoría Biblioteca.
+
+👥 Grupos Disponibles:
+Usuario Biblioteca - Create, Read, Update
+Administrador Biblioteca - Create, Read, Update, Delete
+
+⚙️ Cómo asignar permisos a un usuarioPara asignar estos roles a un usuario en Odoo, sigue estos pasos:
+Activar el Modo Desarrollador: Ve a Ajustes y haz clic en "Activar modo desarrollador".
+Acceder a Usuarios: Dirígete a Ajustes > Usuarios y compañías > Usuarios.
+Seleccionar Usuario: Abre la ficha del usuario al que deseas dar acceso.
+Localizar Sección Biblioteca: En la pestaña Permisos, busca el apartado titulado Biblioteca.
+Seleccionar Nivel: Elige entre Usuario Biblioteca o Administrador Biblioteca en el menú desplegable.
+Guardar: Haz clic en el botón de guardar. El usuario deberá refrescar el navegador para ver los nuevos menús.
+
+📄 Resumen Técnico de Accesos (ir.model.access)Los permisos definidos en el archivo ir.model.access.csv aseguran la integridad de los datos impidiendo el borrado accidental por parte de los usuarios:Modelos afectados: Autor, Libro, Género y Préstamo.Restricción Crítica: El permiso de Unlink (perm_unlink) está configurado en 0 para el grupo group_biblioteca_user en todos los modelos, garantizando que solo los administradores puedan eliminar registros del sistema.
+
 🚀 Características Principales
 Gestión de Catálogo: Control detallado de libros (ISBN, editorial, año de publicación) con estados dinámicos (Disponible, Prestado, Reparación, Perdido).
 
