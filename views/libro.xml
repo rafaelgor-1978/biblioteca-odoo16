@@ -72,9 +72,19 @@
                 <button name="action_libro_prestamo" 
                     type="object" 
                     string="Prestar"                      
-                    icon="fa-share-square-o" 
+                    icon="fa-arrow-right" 
                     class="btn-primary"
                     attrs="{'invisible': [('estado', '!=', 'disponible')]}"/>
+
+                <button 
+                    name="devolver_desde_libro" 
+                    type="object" 
+                    string="Devolver"                      
+                    icon="fa-arrow-left" 
+                    class="btn-success"
+                    attrs="{'invisible': [('estado', '!=', 'prestado')]}"
+                    />
+                    
                 
                 <field name="ano_publicacion"/>
                 
@@ -166,10 +176,17 @@
                                     name="action_libro_prestamo" 
                                     type="object" 
                                     class="btn btn-primary w-100 btn-prestar border-0 shadow-none py-2">
-                                <i class="fa fa-share-square-o me-2"/> Prestar Libro
+                                <i class="fa fa-arrow-right me-2"/> Prestar Libro
+                            </button>
+                            <button t-if="record.estado.raw_value == 'prestado'"
+                                    name="devolver_desde_libro" 
+                                    type="object" 
+                                    class="btn btn-success w-100 btn-prestar border-0 shadow-none py-2">
+                                <i class="fa fa-arrow-left me-2"/> Devolver
                             </button>
                         
                             <div t-if="record.estado.raw_value != 'disponible'" class="py-1"/>
+                            <div t-if="record.estado.raw_value != 'prestado'" class="py-1"/>
                         </div>
                     </t>
                 </templates>

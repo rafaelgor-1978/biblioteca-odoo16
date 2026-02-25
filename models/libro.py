@@ -54,23 +54,27 @@ class BibliotecaLibro(models.Model):
         string='Préstamos'
     )
 
-    prestamos_totales_count = fields.Integer(compute='_compute_prestamos_totales')
-    prestamos_activos_count = fields.Integer(compute='_compute_prestamos_activos')
-    prestamos_devueltos_count = fields.Integer(compute='_compute_prestamos_devueltos')
+    prestamos_totales_count = fields.Integer(
+        compute='_compute_prestamos_totales')
+    prestamos_activos_count = fields.Integer(
+        compute='_compute_prestamos_activos')
+    prestamos_devueltos_count = fields.Integer(
+        compute='_compute_prestamos_devueltos')
 
     def _compute_prestamos_totales(self):
         for record in self:
-            record.prestamos_totales_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id)])
-
+            record.prestamos_totales_count = self.env['biblioteca.prestamo'].search_count(
+                [('libro_id', '=', record.id)])
 
     def _compute_prestamos_activos(self):
         for record in self:
-            record.prestamos_activos_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id), ('estado', '!=', 'devuelto')])
+            record.prestamos_activos_count = self.env['biblioteca.prestamo'].search_count(
+                [('libro_id', '=', record.id), ('estado', '!=', 'devuelto')])
 
     def _compute_prestamos_devueltos(self):
         for record in self:
-            record.prestamos_devueltos_count = self.env['biblioteca.prestamo'].search_count([('libro_id', '=', record.id), ('estado', '=', 'devuelto')])
-
+            record.prestamos_devueltos_count = self.env['biblioteca.prestamo'].search_count(
+                [('libro_id', '=', record.id), ('estado', '=', 'devuelto')])
 
     def action_filtrar_prestamos(self):
         # 1. Definimos el dominio (las condiciones de filtrado)
@@ -78,50 +82,65 @@ class BibliotecaLibro(models.Model):
         condiciones = self.env.context.get('estado', False)
 
         if condiciones:
-            if condiciones == 'activo': 
+            if condiciones == 'activo':
                 estado = 'devuelto'
-                comparador = '!=' 
-                miga = 'Prestamos Activos'                      
-                
+                comparador = '!='
+                miga = 'Prestamos Activos'
+
             else:
                 estado = condiciones
                 comparador = '='
-                miga = 'Prestamos Devueltos' 
+                miga = 'Prestamos Devueltos'
         else:
             estado = ''
             comparador = '!='
             miga = 'Prestamos Totales'
 
-
         my_domain = [
-            
+
             ('estado', comparador, estado),
-            ('libro_id', '=', self.id) # Relacionado con el registro actual
+            ('libro_id', '=', self.id)  # Relacionado con el registro actual
         ]
 
         # 2. Retornamos la acción de ventana
         return {
             'name': miga,
             'type': 'ir.actions.act_window',
-            'res_model': 'biblioteca.prestamo', # El modelo que quieres listar
+            'res_model': 'biblioteca.prestamo',  # El modelo que quieres listar
             'view_mode': 'tree,form',
             'domain': my_domain,
-            'context': {'default_libro_id': self.id}, # Para que al crear uno nuevo, ya esté vinculado
-            'target': 'current', # 'current' recarga la vista, 'new' abre un pop-up
+            # Para que al crear uno nuevo, ya esté vinculado
+            'context': {'default_libro_id': self.id},
+            'target': 'current',  # 'current' recarga la vista, 'new' abre un pop-up
         }
-    
+
     def action_libro_prestamo(self):
         """ Abre el formulario de nuevo préstamo con el libro precargado """
         return {
             'name': 'Nuevo Préstamo',
             'type': 'ir.actions.act_window',
-            'res_model': 'biblioteca.prestamo', # El modelo de destino
+            'res_model': 'biblioteca.prestamo',  # El modelo de destino
             'view_mode': 'form',
-            'target': 'new', # Esto hace que se abra en un popup (ventana modal)
+            # Esto hace que se abra en un popup (ventana modal)
+            'target': 'new',
             'context': {
-                'default_libro_id': self.id, # Pasa el ID actual al campo Many2one
+                'default_libro_id': self.id,  # Pasa el ID actual al campo Many2one
             }
         }
+
+    def devolver_desde_libro(self):
+        prestamo = self.env['biblioteca.prestamo']
+        for record in self:
+            prestamo_activo = prestamo.search([
+                ('libro_id', '=', record.id),
+                ('estado', '=', 'activo')
+            ], limit=1)
+
+        if prestamo_activo:
+            prestamo_activo.devolver_libro()
+        else:
+            raise ValidationError(
+                'Este libro no tiene prestamos activos')
 
     @api.constrains('ano_publicacion', 'fecha_adquisicion')
     def _check_fechas(self):
