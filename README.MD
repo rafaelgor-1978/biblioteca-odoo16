@@ -7,13 +7,16 @@ Este módulo personalizado para Odoo 16 permite la gestión integral de una bibl
 Usuario Biblioteca - Create, Read, Update
 Administrador Biblioteca - Create, Read, Update, Delete
 
-⚙️ Cómo asignar permisos a un usuarioPara asignar estos roles a un usuario en Odoo, sigue estos pasos:
-Activar el Modo Desarrollador: Ve a Ajustes y haz clic en "Activar modo desarrollador".
-Acceder a Usuarios: Dirígete a Ajustes > Usuarios y compañías > Usuarios.
-Seleccionar Usuario: Abre la ficha del usuario al que deseas dar acceso.
-Localizar Sección Biblioteca: En la pestaña Permisos, busca el apartado titulado Biblioteca.
-Seleccionar Nivel: Elige entre Usuario Biblioteca o Administrador Biblioteca en el menú desplegable.
-Guardar: Haz clic en el botón de guardar. El usuario deberá refrescar el navegador para ver los nuevos menús.
+⚙️ Cómo asignar permisos a un usuario.
+
+Para asignar estos roles a un usuario en Odoo, sigue estos pasos:
+
+1.- Activar el Modo Desarrollador: Ve a Ajustes y haz clic en "Activar modo desarrollador".
+2.- Acceder a Usuarios: Dirígete a Ajustes > Usuarios y compañías > Usuarios.
+3.- Seleccionar Usuario: Abre la ficha del usuario al que deseas dar acceso.
+4.- Localizar Sección Biblioteca: En la pestaña Permisos, busca el apartado titulado Biblioteca.
+5.- Seleccionar Nivel: Elige entre Usuario Biblioteca o Administrador Biblioteca en el menú desplegable.
+6.- Guardar: Haz clic en el botón de guardar. El usuario deberá refrescar el navegador para ver los nuevos menús.
 
 📄 Resumen Técnico de Accesos (ir.model.access)Los permisos definidos en el archivo ir.model.access.csv aseguran la integridad de los datos impidiendo el borrado accidental por parte de los usuarios:Modelos afectados: Autor, Libro, Género y Préstamo.Restricción Crítica: El permiso de Unlink (perm_unlink) está configurado en 0 para el grupo group_biblioteca_user en todos los modelos, garantizando que solo los administradores puedan eliminar registros del sistema.
 

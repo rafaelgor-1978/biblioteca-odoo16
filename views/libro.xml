@@ -83,6 +83,7 @@
                     icon="fa-arrow-left" 
                     class="btn-success"
                     attrs="{'invisible': [('estado', '!=', 'prestado')]}"
+                    confirm="¿Estás seguro de que deseas devolver este libro?"
                     />
                     
                 
@@ -181,7 +182,8 @@
                             <button t-if="record.estado.raw_value == 'prestado'"
                                     name="devolver_desde_libro" 
                                     type="object" 
-                                    class="btn btn-success w-100 btn-prestar border-0 shadow-none py-2">
+                                    class="btn btn-success w-100 btn-prestar border-0 shadow-none py-2"
+                                    confirm="¿Estás seguro de que deseas devolver este libro?">
                                 <i class="fa fa-arrow-left me-2"/> Devolver
                             </button>
                         
@@ -201,7 +203,22 @@
         <field name="model">biblioteca.libro</field>
         <field name="arch" type="xml">
             <form string="Libro">
-            <header>                
+            <header>   
+                <button 
+                    name="devolver_desde_libro" 
+                    type="object" 
+                    string="Devolver Libro"                      
+                    icon="fa-arrow-left" 
+                    class="btn-success btn-lg"
+                    attrs="{'invisible': [('estado', '!=', 'prestado')]}"
+                    confirm="¿Estás seguro de que deseas devolver este libro?"
+                    />  
+                <button name="action_libro_prestamo" 
+                    type="object" 
+                    string="Prestar Libro"                      
+                    icon="fa-arrow-right" 
+                    class="btn-primary btn-lg"
+                    attrs="{'invisible': [('estado', '!=', 'disponible')]}"/>           
                 <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="disponible,prestado,reparacion,perdido"/>
             </header>
                 <sheet>
