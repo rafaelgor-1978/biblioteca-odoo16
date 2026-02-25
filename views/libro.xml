@@ -218,7 +218,7 @@
                     string="Prestar Libro"                      
                     icon="fa-arrow-right" 
                     class="btn-primary btn-lg"
-                    attrs="{'invisible': [('estado', '!=', 'disponible')]}"/>           
+                    attrs="{'invisible': ['|', ('estado', '!=', 'disponible'), ('id', '=', False)]}"/>           
                 <field name="estado" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="disponible,prestado,reparacion,perdido"/>
             </header>
                 <sheet>
